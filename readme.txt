@@ -3,7 +3,7 @@ Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
 Tested up to: 3.1.1
-Stable tag: 1.0
+Stable tag: 1.1
 
 Based on the HTML5 Boilerplate created by Paul Irish and Divya Manian,
 this allows for easy inclusion/removal of all HTML5 Boilerplate options.
@@ -75,17 +75,18 @@ Atg
 
 == Screenshots ==
 
-1. Screen shot of Settings > HTML5 Boilerplate link & Admin screen:
-   [http://aarontgrogg.com/html5boilerplate/files/2011/04/screenshot-admin-screen.png](http://aarontgrogg.com/html5boilerplate/files/2011/04/screenshot-admin-screen.png)
+1. [Screen shot of Settings > HTML5 Boilerplate link & Admin screen](http://aarontgrogg.com/html5boilerplate/files/2011/04/screenshot-admin-screen.png)
 
-2. View Source before HTML5 Boilerplate:
-   [http://aarontgrogg.com/html5boilerplate/files/2011/04/screenshot-html-before.png](http://aarontgrogg.com/html5boilerplate/files/2011/04/screenshot-html-before.png)
+2. [View Source before HTML5 Boilerplate](http://aarontgrogg.com/html5boilerplate/files/2011/04/screenshot-html-before.png)
 
-3. View Source after HTML5 Boilerplate:
-   [http://aarontgrogg.com/html5boilerplate/files/2011/04/screenshot-html-after.png](http://aarontgrogg.com/html5boilerplate/files/2011/04/screenshot-html-after.png)
+3. [View Source after HTML5 Boilerplate](http://aarontgrogg.com/html5boilerplate/files/2011/04/screenshot-html-after.png)
 
 
 == Changelog ==
+
+= 1.1 =
+2011-04-24: Trying to get Screenshot links working in readme.txt...
+May or may not work...  :-)
 
 = 1.0 =
 2011-04-21: Well, this is the first version, so... here it is!  This version includes
