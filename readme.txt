@@ -3,7 +3,7 @@ Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
 Tested up to: 3.1.1
-Stable tag: 1.1
+Stable tag: 1.3
 
 Based on the HTML5 Boilerplate created by Paul Irish and Divya Manian,
 this allows for easy inclusion/removal of all HTML5 Boilerplate options.
@@ -83,6 +83,13 @@ Atg
 
 
 == Changelog ==
+
+= 1.3 =
+2011-05-08: Updating jQuery version to 1.6 and hopefully fixing links on Screenshot page.
+
+= 1.2 =
+2011-04-25: Reviewing additional HTML5 Boilerplate pages, adding [Google Fix URL option](http://www.google.com/support/webmasters/bin/answer.py?answer=136085)
+to HTML5 Boilerplate Admin panel.
 
 = 1.1 =
 2011-04-24: Trying to get Screenshot links working in readme.txt...

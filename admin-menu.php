@@ -14,7 +14,8 @@
 
 /*
 	Define plug-in URI */
-	define('BP_PLUGIN_URL', WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__)));
+	define('BP_PLUGIN_URL', WP_PLUGIN_URL);
+	//define('BP_PLUGIN_URL', WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__)));
 
 /*
  	Begin HTML5 Boilerplate Admin panel.
@@ -56,7 +57,7 @@
 /*	2)	Add Admin Page CSS if on the Admin Page */
 
 		function admin_register_head() {
-			echo '<link rel="stylesheet" href="'.BP_PLUGIN_URL. '/admin-style.css" />'.PHP_EOL;
+			echo '<link rel="stylesheet" href="' . get_bloginfo('template_url') . '/boilerplate-admin/admin-style.css" />'.PHP_EOL;
 		}
 		add_action('admin_head', 'admin_register_head');
 
