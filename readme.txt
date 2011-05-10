@@ -3,7 +3,7 @@ Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
 Tested up to: 3.1.2
-Stable tag: 1.4
+Stable tag: 2.0
 
 Based on the HTML5 Boilerplate created by Paul Irish and Divya Manian,
 this allows for easy inclusion/removal of all HTML5 Boilerplate options.
@@ -83,6 +83,11 @@ Atg
 
 
 == Changelog ==
+
+= 2.0 =
+2011-05-10: Finally found [an article](http://wordpress.org/support/topic/updated-my-plugin-listing-still-showing-old-version?replies=7) that tells me that
+not only do I need to update the "Stable tag" in the readme.txt and copy all the plug-in files to a new "Tag" folder, but also the "Version" in the plug-in
+file itself... So, hopefully this will finally get the latest plug-in into the Repository...  :-)
 
 = 1.3 =
 2011-05-08: Updating jQuery version to 1.6 and hopefully fixing links on Screenshot page.
