@@ -2,8 +2,8 @@
 Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
-Tested up to: 3.1.1
-Stable tag: 1.3
+Tested up to: 3.1.2
+Stable tag: 1.4
 
 Based on the HTML5 Boilerplate created by Paul Irish and Divya Manian,
 this allows for easy inclusion/removal of all HTML5 Boilerplate options.
@@ -75,11 +75,11 @@ Atg
 
 == Screenshots ==
 
-1. [Screen shot of Settings > HTML5 Boilerplate link & Admin screen](http://aarontgrogg.com/html5boilerplate/files/2011/04/screenshot-admin-screen.png)
+1. screenshot-admin-screen.png
 
-2. [View Source before HTML5 Boilerplate](http://aarontgrogg.com/html5boilerplate/files/2011/04/screenshot-html-before.png)
+2. screenshot-html-before.png
 
-3. [View Source after HTML5 Boilerplate](http://aarontgrogg.com/html5boilerplate/files/2011/04/screenshot-html-after.png)
+3. screenshot-html-after.png
 
 
 == Changelog ==
