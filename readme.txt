@@ -3,7 +3,7 @@ Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
 Tested up to: 3.1.2
-Stable tag: 2.0
+Stable tag: 2.1
 
 Based on the HTML5 Boilerplate created by Paul Irish and Divya Manian,
 this allows for easy inclusion/removal of all HTML5 Boilerplate options.
@@ -27,6 +27,11 @@ simply copy/paste from them into your files again, and all is fine.
 Another route would be to add `@import` statements at the top of
 your file, but this does increase your HTTP Requests, which hurts performance...
 Your call, let me know if you can think of a better implementation.)
+
+Cannot for the life of me figure out how to make the screenshots work in the `readme.txt`, so here are the links...
+1. [screenshot-admin-screen.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-admin-screen.png)
+2. [screenshot-html-before.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-html-before.png)
+3. [screenshot-html-after.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-html-after.png)
 
 More about this plug-in can be found at:
 [http://aarontgrogg.com/html5boilerplate/](http://aarontgrogg.com/html5boilerplate/)
@@ -72,21 +77,22 @@ Atg
 * Belated PNG JS
 * Google Analytics
 
-
 == Screenshots ==
 
 1. screenshot-admin-screen.png
-
 2. screenshot-html-before.png
-
 3. screenshot-html-after.png
 
 
 == Changelog ==
 
+= 2.1 =
+2011-05-10: Forgot the `/` between `BP_PLUGIN_URL` and the rest of the URL... erps!  Also did a little clean-up on how the Google Analytics gets applied.
+Lastly, giving the screenshots one... last... try...
+
 = 2.0 =
 2011-05-10: Finally found [an article](http://wordpress.org/support/topic/updated-my-plugin-listing-still-showing-old-version?replies=7) that tells me that
-not only do I need to update the "Stable tag" in the readme.txt and copy all the plug-in files to a new "Tag" folder, but also the "Version" in the plug-in
+not only do I need to update the "Stable tag" in the `readme.txt` and copy all the plug-in files to a new `Tag` folder, but also the `Version` in the plug-in
 file itself... So, hopefully this will finally get the latest plug-in into the Repository...  :-)
 
 = 1.3 =
@@ -97,7 +103,7 @@ file itself... So, hopefully this will finally get the latest plug-in into the R
 to HTML5 Boilerplate Admin panel.
 
 = 1.1 =
-2011-04-24: Trying to get Screenshot links working in readme.txt...
+2011-04-24: Trying to get Screenshot links working in `readme.txt`...
 May or may not work...  :-)
 
 = 1.0 =

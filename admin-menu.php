@@ -6,7 +6,7 @@
 	Plugin Name: HTML5 Boilerplate
 	Plugin URI: http://aarontgrogg.com/html5boilerplate/
 	Description: Based on the <a href="http://html5boilerplate.com/" target="_blank">HTML5 Boilerplate</a> created by <a href="http://paulirish.com" target="_blank">Paul Irish</a> and <a href="http://nimbupani.com" target="_blank">Divya Manian</a>, this plug-in allows for easy inclusion and removal of all HTML5 Boilerplate options pertinent to WP.  More about this plug-in can be found at <a href="http://aarontgrogg.com/boilerplate/">http://aarontgrogg.com/boilerplate/</a>.
-	Version: 2.0
+	Version: 2.1
 	Author: Aaron T. Grogg, based on the work of Paul Irish & Divya Manian
 	Author URI: http://aarontgrogg.com/
 	License: GPLv2 or later
@@ -14,8 +14,7 @@
 
 /*
 	Define plug-in URI */
-	define('BP_PLUGIN_URL', WP_PLUGIN_URL);
-	//define('BP_PLUGIN_URL', WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__)));
+	define('BP_PLUGIN_URL', WP_PLUGIN_URL.'/html5-boilerplate/');
 
 /*
  	Begin HTML5 Boilerplate Admin panel.
@@ -57,7 +56,7 @@
 /*	2)	Add Admin Page CSS if on the Admin Page */
 
 		function admin_register_head() {
-			echo '<link rel="stylesheet" href="' . get_bloginfo('template_url') . '/boilerplate-admin/admin-style.css" />'.PHP_EOL;
+			echo '<link rel="stylesheet" href="' .BP_PLUGIN_URL. 'admin-style.css" />'.PHP_EOL;
 		}
 		add_action('admin_head', 'admin_register_head');
 
@@ -219,7 +218,7 @@
 			echo '<code>'.BP_PLUGIN_URL. 'css/handheld-starter.css</code>';
 			echo '<p>Add what you want to that file and select this option. Here are a <a href="http://thinkvitamin.com/design/make-your-site-mobile-friendly/">couple</a> <a href="http://adactio.com/journal/1700/">resources</a> for making your site mobile-ready, but there are plenty more on the web.</p>';
 			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages:</p>';
-			echo '<code>&lt;link rel=\'stylesheet\' id=\'handheld-css\'  href=\''.BP_PLUGIN_URL.'css/handheld.css?ver=x\' type=\'textcss\' media=\'handheld\' /&gt;</code>';
+			echo '<code>&lt;link rel=\'stylesheet\' id=\'handheld-css\'  href=\''.BP_PLUGIN_URL.'css/handheld.css\' type=\'textcss\' media=\'handheld\' /&gt;</code>';
 			echo '<p>(The single quotes and no-longer-necessary attributes are from WP, would like to fix that... maybe next update...)</p>';
 			echo '<p><strong>Note: I recommend adding what you want to the starter file and renaming it as above to avoid it being overwritten during upgrades.</strong></p>';
 		}
@@ -233,7 +232,7 @@
 			echo '<code>'.BP_PLUGIN_URL. 'css/print-starter.css</code>';
 			echo '<p>Add what you want to that file and select this option. Here are a <a href="http://remysharp.com/2007/05/03/pretty-in-print-tips-for-print-styles/">couple</a> <a href="http://westciv.com/style_master/academycss_tutorial/advanced/printing.html">resources</a> for making your site print-ready, but there are plenty more on the web.</p>';
 			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages:</p>';
-			echo '<code>&lt;link rel=\'stylesheet\' id=\'print-css\'  href=\''.BP_PLUGIN_URL.'css/print.css?ver=x\' type=\'textcss\' media=\'print\' /&gt;</code>';
+			echo '<code>&lt;link rel=\'stylesheet\' id=\'print-css\'  href=\''.BP_PLUGIN_URL.'css/print.css\' type=\'textcss\' media=\'print\' /&gt;</code>';
 			echo '<p>(The single quotes and no-longer-necessary attributes are from WP, would like to fix that... maybe next update...)</p>';
 			echo '<p><strong>Note: Boilerplate\'s style.css does have a few lines of CSS pertaining to print, with a link to <a href="http://www.phpied.com/delay-loading-your-print-css/">this article</a>; your call.</strong></p>';
 			echo '<p><strong>Note: I recommend adding what you want to the starter file and renaming it as above to avoid it being overwritten during upgrades.</strong></p>';
@@ -244,11 +243,17 @@
 			$options = get_option('plugin_options');
 			$checked = (isset($options['modernizr_js']) && $options['modernizr_js']) ? 'checked="checked" ' : '';
 			echo '<input class="check-field" type="checkbox" name="plugin_options[modernizr_js]" value="true" ' .$checked. '/>';
-			echo '<p><a href="http://modernizr.com/">Modernizr</a> is a JS library that appends classes to the <code>&lt;html&gt;</code> that indicate whether the user\'s browser is capable of handling advanced CSS, like "no-cssreflections" or "cssreflections".  It\'s a really handy way to apply varying CSS techniques, depending on the user\'s browser\'s abilities.</p>';
+			echo '<p><a href="http://modernizr.com/">Modernizr</a> is a JS library that appends classes to the <code>&lt;html&gt;</code> that indicate whether the user\'s browser is capable of handling advanced CSS, like "no-cssreflections" or "cssreflections".  It\'s a really handy way to apply varying CSS techniques, depending on the user\'s browser\'s abilities, without resulting to CSS hacks.</p>';
 			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages (note the lack of a version, when you\'re ready to upgrade, simply copy/paste the new version into the file below, and your site is ready to go!):</p>';
-			echo '<code>&lt;script type=\'text/javascript\' src=\''.BP_PLUGIN_URL.'js/modernizr.js?ver=x\'&gt;&lt;/script&gt;</code>';
+			echo '<code>&lt;script src="//ajax.cdnjs.com/ajax/libs/modernizr/1.7/modernizr-1.7.min.js"&gt;&lt;/script&gt;</code>';
+			echo '<code>&lt;script&gt;!window.Modernizr && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/modernizr.js"%3E%3C/script%3E\'))&lt;/script&gt;</code>';
 			echo '<p>(The single quotes and no-longer-necessary attributes are from WP, would like to fix that... maybe next update...)</p>';
-			echo '<p><strong>Note: If you do <em>not</em> include Modernizr, the IEShiv JS <em>will</em> be added to accommodate the HTML5 elements used in Boilerplate in weaker browsers.</strong></p>';
+			echo '<p><strong>Note: If you do <em>not</em> include Modernizr, the IEShiv JS <em>will</em> be added to accommodate the HTML5 elements used in Boilerplate in weaker browsers:</strong></p>';
+			echo '<code>&lt;!--[if lt IE 9]&gt;</code>';
+			echo '<code>	&lt;script src="//html5shiv.googlecode.com/svn/trunk/html5.js" onload="window.ieshiv=true;"&gt;&lt;/script&gt;</code>';
+			echo '<code>	&lt;script&gt;!window.ieshiv && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/ieshiv.js"%3E%3C/script%3E\'))&lt;/script&gt;</code>';
+			echo '<code>&lt;![endif]--&gt;</code>';
+
 		}
 
 	//	callback fn for jquery_js
@@ -258,8 +263,8 @@
 			echo '<input class="check-field" type="checkbox" name="plugin_options[jquery_js]" value="true" ' .$checked. '/>';
 			echo '<p><a href="http://jquery.com/">jQuery</a> is a JS library that aids greatly in developing high-quality JavaScript quickly and efficiently.</p>';
 			echo '<p>Selecting this option will add the following code to your pages just before the <code>&lt;/body&gt;</code>:</p>';
-			echo '<code>&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js">&lt;/script&gt;</code>';
-			echo '<code>&lt;script&gt;!window.jQuery && document.write(unescape(\'%3Cscript src="'.BP_PLUGIN_URL.'js/jquery-1.4.4.js"%3E%3C/script%3E\'))&lt;/script&gt;</code>';
+			echo '<code>&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js">&lt;/script&gt;</code>';
+			echo '<code>&lt;script&gt;!window.jQuery && document.write(unescape(\'%3Cscript src="'.BP_PLUGIN_URL.'js/jquery.js"%3E%3C/script%3E\'))&lt;/script&gt;</code>';
 			echo '<p>The above code first tries to download jQuery from Google\'s CDN (which might be available via the user\'s browser cache).  If this is not successful, it uses the theme\'s version.</p>';
 		}
 
@@ -270,7 +275,7 @@
 			echo '<input class="check-field" type="checkbox" name="plugin_options[plugins_js]" value="true" ' .$checked. '/>';
 			echo '<p>If you choose to use any <a href="http://plugins.jquery.com/">jQuery plug-ins</a>, I recommend downloading and concatenating them together in a single JS file, as below.  This will <a href="http://developer.yahoo.com/performance/rules.html">reduce your site\'s HTTP Requests</a>, making your site a better experience.</p>';
 			echo '<p>Selecting this option will add the following code to your pages just before the <code>&lt;/body&gt;</code>:</p>';
-			echo '<code>&lt;script type=\'text/javascript\' src=\''.BP_PLUGIN_URL.'js/plug-in.js?ver=x\'&gt;&lt;/script&gt;</code>';
+			echo '<code>&lt;script type=\'text/javascript\' src=\''.BP_PLUGIN_URL.'js/plug-in.js\'&gt;&lt;/script&gt;</code>';
 			echo '<p>(The single quotes and no-longer-necessary attributes are from WP, would like to fix that... maybe next update...)</p>';
 			echo '<p><strong>Note: If you do <em>not</em> include jQuery, this file will <em>not</em> be added to the page.</strong></p>';
 		}
@@ -284,7 +289,7 @@
 			echo '<code>'.BP_PLUGIN_URL. 'js/script-starter.js</code>';
 			echo '<p>Add what you want to that file and select this option.</p>';
 			echo '<p>Selecting this option will add the following code to your pages just before the <code>&lt;/body&gt;</code>:</p>';
-			echo '<code>&lt;script type=\'text/javascript\' src=\''.BP_PLUGIN_URL.'js/script.js?ver=x\'&gt;&lt;/script&gt;</code>';
+			echo '<code>&lt;script type=\'text/javascript\' src=\''.BP_PLUGIN_URL.'js/script.js\'&gt;&lt;/script&gt;</code>';
 			echo '<p>(The single quotes and no-longer-necessary attributes are from WP, would like to fix that... maybe next update...)</p>';
 		}
 
@@ -295,8 +300,8 @@
 			echo '<input class="check-field" type="checkbox" name="plugin_options[yahoo_profiling_js]" value="true" ' .$checked. '/>';
 			echo '<p><a href="http://developer.yahoo.com/yui/profiler/">YUI Profiler</a> is a code profiler for JavaScript.  It would only be useful for developers during the development of a site.  It should <strong>not</strong> be included when the site is in production use.</p>';
 			echo '<p>Selecting this option will add the following code to your pages just before the <code>&lt;/body&gt;</code>:</p>';
-			echo '<code>&lt;script type=\'text/javascript\' src=\''.BP_PLUGIN_URL.'js/profiling/yahoo-profiling.min.js?ver=x\'&gt;&lt;/script&gt;</code>';
-			echo '<code>&lt;script type=\'text/javascript\' src=\''.BP_PLUGIN_URL.'js/profiling/config.js?ver=x\'&gt;&lt;/script&gt;</code>';
+			echo '<code>&lt;script type=\'text/javascript\' src=\''.BP_PLUGIN_URL.'js/profiling/yahoo-profiling.min.js\'&gt;&lt;/script&gt;</code>';
+			echo '<code>&lt;script type=\'text/javascript\' src=\''.BP_PLUGIN_URL.'js/profiling/config.js\'&gt;&lt;/script&gt;</code>';
 			echo '<p>(The single quotes and no-longer-necessary attributes are from WP, would like to fix that... maybe next update...)</p>';
 		}
 
@@ -308,7 +313,7 @@
 			echo '<p><a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/">DD_belatedPNG</a> adds IE6 support for PNG images used as CSS background images and HTML &lt;img/&gt;</p>';
 			echo '<p>Selecting this option will add the following code to your pages just before the <code>&lt;/body&gt;</code>:</p>';
 			echo '<code>&lt;!--[if lt IE 7]&gt;</code>';
-			echo '<code>&lt;script type=\'text/javascript\' src=\''.BP_PLUGIN_URL.'js/dd_belatedpng.js?ver=x\'&gt;&lt;/script&gt;</code>';
+			echo '<code>&lt;script type=\'text/javascript\' src=\''.BP_PLUGIN_URL.'js/dd_belatedpng.js\'&gt;&lt;/script&gt;</code>';
 			echo '<code>&lt;script&gt;DD_belatedPNG.fix(\'img, .png_bg\');&lt;/script&gt;</code>';
 			echo '<code>&lt;![endif]--&gt;</code>';
 		}
@@ -316,14 +321,14 @@
 	//	callback fn for google_analytics_js
 		function google_analytics_js_setting() {
 			$options = get_option('plugin_options');
-			$checked = (isset($options['google_analytics_js']) && $options['google_analytics_js']) ? 'checked="checked" ' : '';
-			$account = (isset($options['google_analytics_account']) && $options['google_analytics_account']) ? $options['google_analytics_account'] : 'XXXXX-X';
+			$checked = (isset($options['google_analytics_js']) && $options['google_analytics_js'] && isset($options['google_analytics_account']) && str_replace('UA-','',$options['google_analytics_account']) !== 'XXXXX-X') ? 'checked="checked" ' : '';
+			$account = (isset($options['google_analytics_account']) && $options['google_analytics_account']) ? str_replace('UA-','',$options['google_analytics_account']) : 'XXXXX-X';
 			echo '<input class="check-field" type="checkbox" name="plugin_options[google_analytics_js]" value="true" ' .$checked. '/>';
 			echo '<p>To include Google Analytics, select this option and include your account number here:<br />';
 			echo 'UA-<input type="text" size="6" name="plugin_options[google_analytics_account]" value="'.$account.'" onfocus="javascript:if(this.value===\'XXXXX-X\'){this.select();}" /></p>';
 			echo '<p>Selecting this option will add the following code to your pages just before the <code>&lt;/body&gt;</code>, where \'UA-XXXXX-X\' will be replaced with the code you insert above:</p>';
 			echo '<code>&lt;script&gt;</code>';
-			echo '<code>var _gaq=[["_setAccount","'.(($account !== 'XXXXX-X') ? 'UA-'.$account : 'UA-XXXXX-X').'"],["_trackPageview"]];</code>';
+			echo '<code>var _gaq=[["_setAccount","UA-'.(($account !== 'XXXXX-X') ? $account : 'XXXXX-X').'"],["_trackPageview"]];</code>';
 			echo '<code>(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;</code>';
 			echo '<code>g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";</code>';
 			echo '<code>s.parentNode.insertBefore(g,s)}(document,"script"));</code>';
@@ -470,7 +475,7 @@
 			$options = get_option('plugin_options');
 			$account = $options['google_analytics_account'];
 			echo PHP_EOL.'<script>'.PHP_EOL;
-			echo 'var _gaq=[["_setAccount","UA-'.$account.'"],["_trackPageview"]];'.PHP_EOL;
+			echo 'var _gaq=[["_setAccount","UA-'.str_replace('UA-','',$account).'"],["_trackPageview"]];'.PHP_EOL;
 			echo '(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;'.PHP_EOL;
 			echo 'g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";'.PHP_EOL;
 			echo 's.parentNode.insertBefore(g,s)}(document,"script"));'.PHP_EOL;
