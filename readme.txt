@@ -3,7 +3,7 @@ Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
 Tested up to: 3.1.2
-Stable tag: 2.1
+Stable tag: 2.2
 
 Based on the HTML5 Boilerplate created by Paul Irish and Divya Manian,
 this allows for easy inclusion/removal of all HTML5 Boilerplate options.
@@ -29,6 +29,7 @@ your file, but this does increase your HTTP Requests, which hurts performance...
 Your call, let me know if you can think of a better implementation.)
 
 Cannot for the life of me figure out how to make the screenshots work in the `readme.txt`, so here are the links...
+
 1. [screenshot-admin-screen.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-admin-screen.png)
 2. [screenshot-html-before.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-html-before.png)
 3. [screenshot-html-after.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-html-after.png)
@@ -59,23 +60,28 @@ Atg
 == Frequently Asked Questions ==
 
 = What HTML5 Boilerplate options does the plug-in let me manipulate? =
-* Use HTML5 DOCTYPE
-* IE Conditional Tag
-* Replace old-school, long-hand character-encoding `<meta>` with HTML5-version
-* Google Chrome / IE-edge
-* iThings use full zoom
-* Add Favicon
-* Add iThing Favicon
-* IE CSS
-* Handheld CSS
-* Print CSS
-* Modernizr JS
-* jQuery JS
-* jQuery Plug-ins JS
-* Site-specific JS
-* Yahoo! Profiling JS
-* Belated PNG JS
-* Google Analytics
+* HTML5 `DOCTYPE`?
+* IE Conditional `<html>` Tag?
+* Move XFN profile to `<link>`?
+* HTML5 Character-Encoding `<meta>` Tag?
+* Google Chrome / IE-edge?
+* iThings use full zoom?
+* Add Favicon?
+* Add iThing Favicon?
+* IE CSS?
+* Handheld CSS?
+* Print CSS?
+* Modernizr JS?
+* jQuery JS?
+* jQuery Plug-ins JS?
+* Site-specific JS?
+* Yahoo! Profiling JS?
+* Belated PNG JS?
+* Google Analytics?
+* HTML5 Search `<input>`?
+* Search `placeholder` text?
+* Cache Buster?
+
 
 == Screenshots ==
 
@@ -85,6 +91,10 @@ Atg
 
 
 == Changelog ==
+
+= 2.2 =
+2011-05-11: Added features to move XFN Profile link, convert Search input type to "search", add custom placeholder text, and add cache buster to all CSS/JS URLs.
+Phew!
 
 = 2.1 =
 2011-05-10: Forgot the `/` between `BP_PLUGIN_URL` and the rest of the URL... erps!  Also did a little clean-up on how the Google Analytics gets applied.

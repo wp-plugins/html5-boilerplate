@@ -5,8 +5,8 @@
 
 	Plugin Name: HTML5 Boilerplate
 	Plugin URI: http://aarontgrogg.com/html5boilerplate/
-	Description: Based on the <a href="http://html5boilerplate.com/" target="_blank">HTML5 Boilerplate</a> created by <a href="http://paulirish.com" target="_blank">Paul Irish</a> and <a href="http://nimbupani.com" target="_blank">Divya Manian</a>, this plug-in allows for easy inclusion and removal of all HTML5 Boilerplate options pertinent to WP.  More about this plug-in can be found at <a href="http://aarontgrogg.com/boilerplate/">http://aarontgrogg.com/boilerplate/</a>.
-	Version: 2.1
+	Description: Based on the <a href="http://html5boilerplate.com/" target="_blank">HTML5 Boilerplate</a> created by <a href="http://paulirish.com" target="_blank">Paul Irish</a> and <a href="http://nimbupani.com" target="_blank">Divya Manian</a>, this plug-in allows for easy inclusion and removal of all HTML5 Boilerplate options pertinent to WP.  More about this plug-in can be found at <a href="http://aarontgrogg.com/html5boilerplate/">http://aarontgrogg.com/html5boilerplate/</a>.
+	Version: 2.2
 	Author: Aaron T. Grogg, based on the work of Paul Irish & Divya Manian
 	Author URI: http://aarontgrogg.com/
 	License: GPLv2 or later
@@ -66,9 +66,10 @@
 		function register_and_build_fields() {
 			register_setting('plugin_options', 'plugin_options', 'validate_setting');
 			add_settings_section('main_section', '', 'section_cb', 'boilerplate-admin');
-			add_settings_field('doctype', 'Use HTML5 DOCTYPE?:', 'doctype_setting', 'boilerplate-admin', 'main_section');
-			add_settings_field('html', 'IE Conditional <html> Tag?:', 'html_setting', 'boilerplate-admin', 'main_section');
-			add_settings_field('charset', 'Use HTML5 Character-Encoding <meta> Tag?:', 'charset_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('doctype', 'HTML5 DOCTYPE?:', 'doctype_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('html', 'IE Conditional &lt;html&gt; Tags?:', 'html_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('head', 'Move XFN profile to &lt;link&gt;?:', 'head_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('charset', 'HTML5 Character-Encoding &lt;meta&gt; Tag?:', 'charset_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('chrome', 'Google Chrome / IE-edge?:', 'chrome_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('viewport', '<em><abbr title="iPhone, iTouch, iPad...">iThings</abbr></em> use full zoom?:', 'viewport_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('favicon', 'Got Favicon?:', 'favicon_setting', 'boilerplate-admin', 'main_section');
@@ -83,6 +84,8 @@
 			add_settings_field('yahoo_profiling_js', 'Yahoo! Profiling JS?:', 'yahoo_profiling_js_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('belated_png_js', 'Belated PNG JS?:', 'belated_png_js_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('google_analytics_js', 'Google Analytics?:', 'google_analytics_js_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('search_input', 'HTML5 Search &lt;input&gt;?:', 'search_input_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('cache_buster', 'Cache Buster?:', 'cache_buster_setting', 'boilerplate-admin', 'main_section');
 		}
 		add_action('admin_init', 'register_and_build_fields');
 
@@ -142,6 +145,16 @@
 			echo '<code>&lt;!--[if IE 8 ]&gt;&lt;html dir="'.get_bloginfo('text_direction').'" lang="'.get_bloginfo('language').'" class="no-js ie ie8 lte8 lte9"&gt;&lt;![endif]--&gt;</code>';
 			echo '<code>&lt;!--[if IE 9 ]&gt;&lt;html dir="'.get_bloginfo('text_direction').'" lang="'.get_bloginfo('language').'" class="no-js ie ie9 lte9"&gt;&lt;![endif]--&gt;</code>';
 			echo '<code>&lt;!--[if (gt IE 9)|!(IE)]&gt;&lt;!-->&lt;html dir="'.get_bloginfo('text_direction').'" lang="'.get_bloginfo('language').'" class="no-js"&gt;&lt;!--&gt;![endif]--&gt;</code>';
+		}
+
+	//	callback fn for head
+		function head_setting() {
+			$options = get_option('plugin_options');
+			$checked = (isset($options['head']) && $options['head']) ? 'checked="checked" ' : '';
+			echo '<input class="check-field" type="checkbox" name="plugin_options[head]" value="true" ' .$checked. '/>';
+			echo '<p>Many themes have the <a href="http://gmpg.org/xfn/1">XFN profile</a> link as an attribute to the <code>&lt;head&gt;</code>, which does not validate.  The XFN profile should be moved to a <code>&lt;link&gt;</code> inside the <code>&lt;head&gt;</code>';
+			echo '<p>Selecting this option will replace your existing <code>&lt;head profile="http://gmpg.org/xfn/11"&gt;</code> with <code>&lt;head&gt;</code> and add the following code inside the <code>&lt;head&gt;</code> on all of your pages:</p>';
+			echo '<code>&lt;link rel="profile" href="http://gmpg.org/xfn/11" /&gt;</code>';
 		}
 
 	//	callback fn for charset
@@ -336,6 +349,32 @@
 			echo '<p><strong>Note: You must check the box <em>and</em> provide a UA code for this to be added to your pages.</strong></p>';
 		}
 
+	//	callback fn for search_input
+		function search_input_setting() {
+			$options = get_option('plugin_options');
+			$checked = (isset($options['search_input']) && $options['search_input']) ? 'checked="checked" ' : '';
+			$placeholder = (isset($options['search_placeholder_text']) && $options['search_placeholder_text']) ? $options['search_placeholder_text'] : '';
+			echo '<input class="check-field" type="checkbox" name="plugin_options[search_input]" value="true" ' .$checked. '/>';
+			echo '<p>HTML5 allows numerous new input <code>type</code>s, including <code>type="search"</code>.  These new <code>type</code>s default to <code>type="text"</code> if the browser doesn\'t understand the new <code>type</code>, so there is no real penalty to using the new ones.  ';
+			echo 'The new <code>search</code> also comes with a new <code>placeholder</code> attribute (sample text); to include <code>placeholder</code> text, type something here:<br />';
+			echo '<input type="text" size="10" name="plugin_options[search_placeholder_text]" value="'.$placeholder.'" /></p>';
+			echo '<p>Selecting this option will replace your existing <code>&lt;input type="text"...&gt;</code> with the following code on all of your pages:</p>';
+			echo '<code>&lt;input type="search" placeholder="'.$placeholder.'"... /&gt;</code>';
+		}
+
+	//	callback fn for cache_buster
+		function cache_buster_setting() {
+			$options = get_option('plugin_options');
+			$checked = (isset($options['cache_buster']) && $options['cache_buster']) ? 'checked="checked" ' : '';
+			$version = (isset($options['cache_buster_version']) && $options['cache_buster_version']) ? $options['cache_buster_version'] : '1';
+			echo '<input class="check-field" type="checkbox" name="plugin_options[cache_buster]" value="true" ' .$checked. '/>';
+			echo '<p>To force browsers to fetch a new version of a file, versus one it might already have cached, you can add a "cache buster" to the end of your CSS and JS files.  ';
+			echo 'To increment the cache buster version number, type something here:<br />';
+			echo '<input type="text" size="4" name="plugin_options[cache_buster_version]" value="'.$version.'" /></p>';
+			echo '<p>Selecting this option will add the following code to the end of all of your CSS and JS file names on all of your pages:</p>';
+			echo '<code>?ver='.$version.'</code>';
+		}
+
 
 /*	4)	Create functions to add above elements to pages */
 
@@ -367,6 +406,22 @@
 		}
 		function start_html() {
 			ob_start("replace_html");
+		}
+
+	//	$options['head']
+		function replace_head($buffer) {
+			$old = '<head profile="http://gmpg.org/xfn/11">';
+			$new = '<head>';
+			return (str_replace($old, $new, $buffer));
+		}
+		function write_head() {
+			ob_end_flush();
+		}
+		function start_head() {
+			ob_start("replace_head");
+		}
+		function add_xfn() {
+			echo '<link rel="profile" href="http://gmpg.org/xfn/11" />'.PHP_EOL;
 		}
 
 	//	$options['charset']
@@ -404,68 +459,78 @@
 
 	//	$options['ie_css'];
 		function add_ie_stylesheet() {
-			echo '<!--[if IE ]><link rel="stylesheet" href="'.BP_PLUGIN_URL.'css/ie.css"><![endif]-->'.PHP_EOL;
+			$cache = cache_buster();
+			echo '<!--[if IE ]><link rel="stylesheet" href="'.BP_PLUGIN_URL.'css/ie.css'.$cache.'"><![endif]-->'.PHP_EOL;
 		}
 
 	//	$options['handheld_css']
 		function add_handheld_stylesheet() {
-			wp_register_style( 'handheld', BP_PLUGIN_URL . 'css/handheld.css', array(), '', 'handheld' );
+			$cache = cache_buster();
+			wp_register_style( 'handheld', BP_PLUGIN_URL.'css/handheld.css', array(), str_replace('?ver=','',$cache), 'handheld' );
 			wp_enqueue_style( 'handheld');
 		}
 
 	//	$options['print_css']; implement as: http://www.alistapart.com/articles/return-of-the-mobile-stylesheet ?
 		function add_print_stylesheet() {
-			wp_register_style( 'print', BP_PLUGIN_URL . 'css/print.css', array(), '', 'print' );
+			$cache = cache_buster();
+			wp_register_style( 'print', BP_PLUGIN_URL.'css/print.css', array(), str_replace('?ver=','',$cache), 'print' );
 			wp_enqueue_style( 'print');
 		}
 
 	//	$options['modernizr_js']
 		function add_modernizr_script() {
+			$cache = cache_buster();
 			wp_deregister_script( 'ieshiv' ); // get rid of IEShiv if it somehow got called too (IEShiv is included in Modernizr)
 			wp_deregister_script( 'modernizr' ); // get rid of any native Modernizr
 			echo '<script src="//ajax.cdnjs.com/ajax/libs/modernizr/1.7/modernizr-1.7.min.js"></script>'.PHP_EOL; // try getting from CDN
-			echo '<script>!window.Modernizr && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/modernizr.js"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
+			echo '<script>!window.Modernizr && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/modernizr.js'.$cache.'"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
 		}
 
 	//	$options['ieshiv_script']
 		function add_ieshiv_script() {
+			$cache = cache_buster();
 			echo '<!--[if lt IE 9]>'.PHP_EOL;
 			echo '	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js" onload="window.ieshiv=true;"></script>'.PHP_EOL; // try getting from CDN
-			echo '	<script>!window.ieshiv && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/ieshiv.js"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
+			echo '	<script>!window.ieshiv && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/ieshiv.js'.$cache.'"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
 			echo '<![endif]-->'.PHP_EOL;
 		}
 
 	//	$options['jquery_js']
 		function add_jquery_script() {
+			$cache = cache_buster();
 			wp_deregister_script( 'jquery' ); // get rid of WP's jQuery
 			echo '<script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>'.PHP_EOL; // try getting from CDN
-			echo '<script>!window.jQuery && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/jquery.js"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
+			echo '<script>!window.jQuery && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/jquery.js'.$cache.'"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
 		}
 
 	//	$options['plugins_js']
 		function add_plugin_script() {
-			wp_register_script( 'plug_ins', BP_PLUGIN_URL . 'js/plugins.js', array(), '', true );
+			$cache = cache_buster();
+			wp_register_script( 'plug_ins', BP_PLUGIN_URL . 'js/plugins.js', array(), str_replace('?ver=','',$cache), true );
 			wp_enqueue_script( 'plug_ins' );
 		}
 
 	//	$options['site_js']
 		function add_site_script() {
-			wp_register_script( 'site_script', BP_PLUGIN_URL . 'js/script.js', array(), '', true );
+			$cache = cache_buster();
+			wp_register_script( 'site_script', BP_PLUGIN_URL . 'js/script.js', array(), str_replace('?ver=','',$cache), true );
 			wp_enqueue_script( 'site_script' );
 		}
 
 	//	$options['yahoo_profiling_js']
 		function add_yahoo_profiling_script() {
-			wp_register_script( 'yahoo_profiling', BP_PLUGIN_URL . 'js/profiling/yahoo-profiling.min.js', array(), '', true );
+			$cache = cache_buster();
+			wp_register_script( 'yahoo_profiling', BP_PLUGIN_URL . 'js/profiling/yahoo-profiling.min.js', array(), str_replace('?ver=','',$cache), true );
 			wp_enqueue_script( 'yahoo_profiling' );
-			wp_register_script( 'yahoo_profiling_config', BP_PLUGIN_URL . 'js/profiling/config.js', array(), '', true );
+			wp_register_script( 'yahoo_profiling_config', BP_PLUGIN_URL . 'js/profiling/config.js', array(), str_replace('?ver=','',$cache), true );
 			wp_enqueue_script( 'yahoo_profiling_config' );
 		}
 
 	//	$options['belated_png_js']
 		function add_belated_png_script() {
+			$cache = cache_buster();
 			echo '<!--[if lt IE 7 ]>'.PHP_EOL;
-			echo '	<script src="' .BP_PLUGIN_URL. 'js/dd_belatedpng.js"></script>'.PHP_EOL;
+			echo '	<script src="' .BP_PLUGIN_URL. 'js/dd_belatedpng.js'.$cache.'"></script>'.PHP_EOL;
 			echo '	<script>DD_belatedPNG.fix(\'img, .png_bg\');</script>'.PHP_EOL;
 			echo '<![endif]-->'.PHP_EOL;
 		}
@@ -482,6 +547,27 @@
 			echo '</script>'.PHP_EOL;
 		}
 
+	//	$options['google_analytics_js']
+		function search_input($form ) {
+			$options = get_option('plugin_options');
+			$placeholder = $options['search_placeholder_text'];
+			$form = '<form role="search" method="get" id="searchform" action="' . home_url( '/' ) . '" >
+			<div><label class="screen-reader-text" for="s">' . __('Search for:') . '</label>
+			<input type="search" placeholder="'.$placeholder.'" value="' . get_search_query() . '" name="s" id="s" />
+			<input type="submit" id="searchsubmit" value="'. esc_attr__('Search') .'" />
+			</div>
+			</form>';
+			return $form;
+		}
+
+	//	$options['cache_buster']
+		function cache_buster() {
+			$options = get_option('plugin_options');
+			return (isset($options['cache_buster']) && $options['cache_buster']) ? '?ver='.$options['cache_buster_version'] : '';
+		}
+
+
+
 
 /*	5)	Add Boilerplate options to page as requested */
 		if (!is_admin() ) {
@@ -497,6 +583,11 @@
 			if (isset($options['html']) && $options['html']) {
 				add_action('get_header', 'start_html');
 				add_action('wp_head', 'write_html');
+			}
+			if (isset($options['head']) && $options['head']) {
+				add_action('get_header', 'start_head');
+				add_action('wp_head', 'write_head');
+				add_action('wp_print_styles', 'add_xfn');
 			}
 			if (isset($options['charset']) && $options['charset']) {
 				add_action('get_header', 'start_charset');
@@ -546,6 +637,9 @@
 			}
 			if (isset($options['google_analytics_js']) && $options['google_analytics_js']) {
 				add_action('wp_footer', 'add_google_analytics_script');
+			}
+			if (isset($options['search_input']) && $options['search_input']) {
+				add_filter( 'get_search_form', 'search_input');
 			}
 		}
 
