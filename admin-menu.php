@@ -6,7 +6,7 @@
 	Plugin Name: HTML5 Boilerplate
 	Plugin URI: http://aarontgrogg.com/html5boilerplate/
 	Description: Based on the <a href="http://html5boilerplate.com/" target="_blank">HTML5 Boilerplate</a> created by <a href="http://paulirish.com" target="_blank">Paul Irish</a> and <a href="http://nimbupani.com" target="_blank">Divya Manian</a>, this plug-in allows for easy inclusion and removal of all HTML5 Boilerplate options pertinent to WP.  More about this plug-in can be found at <a href="http://aarontgrogg.com/html5boilerplate/">http://aarontgrogg.com/html5boilerplate/</a>.
-	Version: 2.2
+	Version: 3.0
 	Author: Aaron T. Grogg, based on the work of Paul Irish & Divya Manian
 	Author URI: http://aarontgrogg.com/
 	License: GPLv2 or later
@@ -67,25 +67,24 @@
 			register_setting('plugin_options', 'plugin_options', 'validate_setting');
 			add_settings_section('main_section', '', 'section_cb', 'boilerplate-admin');
 			add_settings_field('doctype', 'HTML5 DOCTYPE?:', 'doctype_setting', 'boilerplate-admin', 'main_section');
-			add_settings_field('html', 'IE Conditional &lt;html&gt; Tags?:', 'html_setting', 'boilerplate-admin', 'main_section');
-			add_settings_field('head', 'Move XFN profile to &lt;link&gt;?:', 'head_setting', 'boilerplate-admin', 'main_section');
-			add_settings_field('charset', 'HTML5 Character-Encoding &lt;meta&gt; Tag?:', 'charset_setting', 'boilerplate-admin', 'main_section');
-			add_settings_field('chrome', 'Google Chrome / IE-edge?:', 'chrome_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('html', 'IE-Conditionals?:', 'html_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('head', 'Move XFN profile?:', 'head_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('charset', 'HTML5 Character-Encoding?:', 'charset_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('toolbar', 'IE6 Image Toolbar?:', 'toolbar_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('google_chrome', 'IE-edge / Google Chrome?:', 'google_chrome_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('google_verification', 'Google Verification?:', 'google_verification_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('viewport', '<em><abbr title="iPhone, iTouch, iPad...">iThings</abbr></em> use full zoom?:', 'viewport_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('favicon', 'Got Favicon?:', 'favicon_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('favicon_ithing', 'Got <em><abbr title="iPhone, iTouch, iPad...">iThing</abbr></em> Favicon?', 'favicon_ithing_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('ie_css', 'IE CSS?:', 'ie_css_setting', 'boilerplate-admin', 'main_section');
-			add_settings_field('handheld_css', 'Handheld CSS?:', 'handheld_css_setting', 'boilerplate-admin', 'main_section');
-			add_settings_field('print_css', 'Print CSS?:', 'print_css_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('modernizr_js', 'Modernizr JS?:', 'modernizr_js_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('respond_js', 'Respond JS?:', 'respond_js_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('jquery_js', 'jQuery JS?:', 'jquery_js_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('plugins_js', 'jQuery Plug-ins JS?:', 'plugins_js_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('site_js', 'Site-specific JS?:', 'site_js_setting', 'boilerplate-admin', 'main_section');
-			add_settings_field('yahoo_profiling_js', 'Yahoo! Profiling JS?:', 'yahoo_profiling_js_setting', 'boilerplate-admin', 'main_section');
-			add_settings_field('belated_png_js', 'Belated PNG JS?:', 'belated_png_js_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('google_analytics_js', 'Google Analytics?:', 'google_analytics_js_setting', 'boilerplate-admin', 'main_section');
-			add_settings_field('search_input', 'HTML5 Search &lt;input&gt;?:', 'search_input_setting', 'boilerplate-admin', 'main_section');
-			add_settings_field('cache_buster', 'Cache Buster?:', 'cache_buster_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('search_input', 'HTML5 Search?:', 'search_input_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('cache_buster', 'Cache-Buster?:', 'cache_buster_setting', 'boilerplate-admin', 'main_section');
 		}
 		add_action('admin_init', 'register_and_build_fields');
 
@@ -130,7 +129,7 @@
 			echo '<input class="check-field" type="checkbox" name="plugin_options[doctype]" value="true" ' .$checked. '/>';
 			echo '<p>Use HTML5 DOCTYPE.</p>';
 			echo '<p>Selecting this option will replace your existing DOCTYPE with the following code on all of your pages:</p>';
-			echo '<code>&lt;!DOCTYPE html/&gt;</code>';
+			echo '<code>&lt;!DOCTYPE html&gt;</code>';
 		}
 
 	//	callback fn for Boilerplate <html>
@@ -167,14 +166,38 @@
 			echo '<code>&lt;meta charset="' . get_bloginfo('charset') . '" /&gt;</code>';
 		}
 
-	//	callback fn for chrome
-		function chrome_setting() {
+	//	callback fn for toolbar
+		function toolbar_setting() {
 			$options = get_option('plugin_options');
-			$checked = (isset($options['chrome']) && $options['chrome']) ? 'checked="checked" ' : '';
-			echo '<input class="check-field" type="checkbox" name="plugin_options[chrome]" value="true" ' .$checked. '/>';
+			$checked = (isset($options['toolbar']) && $options['toolbar']) ? 'checked="checked" ' : '';
+			echo '<input class="check-field" type="checkbox" name="plugin_options[toolbar]" value="true" ' .$checked. '/>';
+			echo '<p>Kill the IE6 Image Toolbar that appears when users hover over images on your site.</p>';
+			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages:</p>';
+			echo '<code>&lt;meta http-equiv="imagetoolbar" content="false" /&gt;</code>';
+		}
+
+	//	callback fn for google_chrome
+		function google_chrome_setting() {
+			$options = get_option('plugin_options');
+			$checked = (isset($options['google_chrome']) && $options['google_chrome']) ? 'checked="checked" ' : '';
+			echo '<input class="check-field" type="checkbox" name="plugin_options[google_chrome]" value="true" ' .$checked. '/>';
 			echo '<p>Force the most-recent IE rendering engine or users with <a href="http://www.chromium.org/developers/how-tos/chrome-frame-getting-started">Google Chrome Frame</a> installed to see your site using Google Frame.</p>';
 			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages:</p>';
 			echo '<code>&lt;meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /&gt;</code>';
+		}
+
+	//	callback fn for google_verification
+		function google_verification_setting() {
+			$options = get_option('plugin_options');
+			$checked = (isset($options['google_verification']) && $options['google_verification'] && $options['google_verification_account'] && $options['google_verification_account'] !== 'XXXXXXXXX...') ? 'checked="checked" ' : '';
+			$account = (isset($options['google_verification_account']) && $options['google_verification_account']) ? $options['google_verification_account'] : 'XXXXXXXXX...';
+			$msg = ($account === 'XXXXXXXXX...') ? ', where </code>XXXXXXXXX...</code> will be replaced with the code you insert above' : '';
+			echo '<input class="check-field" type="checkbox" name="plugin_options[google_verification]" value="true" ' .$checked. '/>';
+			echo '<p>Add <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=35179">Google Verificaton</a> code to the <code>&lt;head&gt;</code> of all your pages.</p>';
+			echo '<p>To include Google Verificaton, select this option and include your Verificaton number here:<br />';
+			echo '<input type="text" size="40" name="plugin_options[google_verification_account]" value="'.$account.'" onfocus="javascript:if(this.value===\'XXXXXXXXX...\'){this.select();}" /></p>';
+			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages'.$msg.'</p>';
+			echo '<code>&lt;meta name="google-site-verification" content="'.$account.'" /&gt;</code>';
 		}
 
 	//	callback fn for viewport
@@ -207,6 +230,8 @@
 			echo '<p>If the file is in the right location, you don\'t really need to select this option, browsers will automatically look there and no additional code will be added to your pages.</p>';
 			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages:</p>';
 			echo '<code>&lt;link rel="apple-touch-icon" href="/apple-touch-icon.png" /&gt;</code>';
+			echo '<code>&lt;link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-ipad.png" /&gt;</code>';
+			echo '<code>&lt;link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-iphone4.png" /&gt;</code>';
 		}
 
 	//	callback fn for ie_css
@@ -222,51 +247,32 @@
 			echo '<code>&lt;!--[if IE ]&gt;&lt;link rel="stylesheet" href="'.BP_PLUGIN_URL.'css/ie.css" /&gt;&lt;![endif]--&gt;</code>';
 		}
 
-	//	callback fn for handheld_css
-		function handheld_css_setting() {
-			$options = get_option('plugin_options');
-			$checked = (isset($options['handheld_css']) && $options['handheld_css']) ? 'checked="checked" ' : '';
-			echo '<input class="check-field" type="checkbox" name="plugin_options[handheld_css]" value="true" ' .$checked. '/>';
-			echo '<p>If you would like to add a handheld CSS file, Boilerplate provides a starter file located in:</p>';
-			echo '<code>'.BP_PLUGIN_URL. 'css/handheld-starter.css</code>';
-			echo '<p>Add what you want to that file and select this option. Here are a <a href="http://thinkvitamin.com/design/make-your-site-mobile-friendly/">couple</a> <a href="http://adactio.com/journal/1700/">resources</a> for making your site mobile-ready, but there are plenty more on the web.</p>';
-			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages:</p>';
-			echo '<code>&lt;link rel=\'stylesheet\' id=\'handheld-css\'  href=\''.BP_PLUGIN_URL.'css/handheld.css\' type=\'textcss\' media=\'handheld\' /&gt;</code>';
-			echo '<p>(The single quotes and no-longer-necessary attributes are from WP, would like to fix that... maybe next update...)</p>';
-			echo '<p><strong>Note: I recommend adding what you want to the starter file and renaming it as above to avoid it being overwritten during upgrades.</strong></p>';
-		}
-
-	//	callback fn for print_css
-		function print_css_setting() {
-			$options = get_option('plugin_options');
-			$checked = (isset($options['print_css']) && $options['print_css']) ? 'checked="checked" ' : '';
-			echo '<input class="check-field" type="checkbox" name="plugin_options[print_css]" value="true" ' .$checked. '/>';
-			echo '<p>If you would like to add a print CSS file, Boilerplate provides a starter file located in:</p>';
-			echo '<code>'.BP_PLUGIN_URL. 'css/print-starter.css</code>';
-			echo '<p>Add what you want to that file and select this option. Here are a <a href="http://remysharp.com/2007/05/03/pretty-in-print-tips-for-print-styles/">couple</a> <a href="http://westciv.com/style_master/academycss_tutorial/advanced/printing.html">resources</a> for making your site print-ready, but there are plenty more on the web.</p>';
-			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages:</p>';
-			echo '<code>&lt;link rel=\'stylesheet\' id=\'print-css\'  href=\''.BP_PLUGIN_URL.'css/print.css\' type=\'textcss\' media=\'print\' /&gt;</code>';
-			echo '<p>(The single quotes and no-longer-necessary attributes are from WP, would like to fix that... maybe next update...)</p>';
-			echo '<p><strong>Note: Boilerplate\'s style.css does have a few lines of CSS pertaining to print, with a link to <a href="http://www.phpied.com/delay-loading-your-print-css/">this article</a>; your call.</strong></p>';
-			echo '<p><strong>Note: I recommend adding what you want to the starter file and renaming it as above to avoid it being overwritten during upgrades.</strong></p>';
-		}
-
 	//	callback fn for modernizr_js
 		function modernizr_js_setting() {
 			$options = get_option('plugin_options');
 			$checked = (isset($options['modernizr_js']) && $options['modernizr_js']) ? 'checked="checked" ' : '';
 			echo '<input class="check-field" type="checkbox" name="plugin_options[modernizr_js]" value="true" ' .$checked. '/>';
-			echo '<p><a href="http://modernizr.com/">Modernizr</a> is a JS library that appends classes to the <code>&lt;html&gt;</code> that indicate whether the user\'s browser is capable of handling advanced CSS, like "no-cssreflections" or "cssreflections".  It\'s a really handy way to apply varying CSS techniques, depending on the user\'s browser\'s abilities, without resulting to CSS hacks.</p>';
+			echo '<p><a href="http://modernizr.com/">Modernizr</a> is a JS library that appends classes to the <code>&lt;html&gt;</code> that indicate whether the user\'s browser is capable of handling advanced CSS, like "cssreflections" or "no-cssreflections".  It\'s a really handy way to apply varying CSS techniques, depending on the user\'s browser\'s abilities, without resorting to CSS hacks.</p>';
 			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages (note the lack of a version, when you\'re ready to upgrade, simply copy/paste the new version into the file below, and your site is ready to go!):</p>';
-			echo '<code>&lt;script src="//ajax.cdnjs.com/ajax/libs/modernizr/1.7/modernizr-1.7.min.js"&gt;&lt;/script&gt;</code>';
-			echo '<code>&lt;script&gt;!window.Modernizr && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/modernizr.js"%3E%3C/script%3E\'))&lt;/script&gt;</code>';
-			echo '<p>(The single quotes and no-longer-necessary attributes are from WP, would like to fix that... maybe next update...)</p>';
+			//dropping cdnjs per Paul & Divya recommendation, leaving below line as it will hopefully soon become a Google CDN link
+			//echo '<code>&lt;script src="//ajax.cdnjs.com/ajax/libs/modernizr/1.7/modernizr-1.7.min.js"&gt;&lt;/script&gt;</code>';
+			//echo '<code>&lt;script&gt;!window.Modernizr && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/modernizr.js"%3E%3C/script%3E\'))&lt;/script&gt;</code>';
+			echo '<code>&lt;script src="' .BP_PLUGIN_URL. 'js/modernizr.js"&gt;&lt;/script&gt;</code>';
 			echo '<p><strong>Note: If you do <em>not</em> include Modernizr, the IEShiv JS <em>will</em> be added to accommodate the HTML5 elements used in Boilerplate in weaker browsers:</strong></p>';
 			echo '<code>&lt;!--[if lt IE 9]&gt;</code>';
 			echo '<code>	&lt;script src="//html5shiv.googlecode.com/svn/trunk/html5.js" onload="window.ieshiv=true;"&gt;&lt;/script&gt;</code>';
 			echo '<code>	&lt;script&gt;!window.ieshiv && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/ieshiv.js"%3E%3C/script%3E\'))&lt;/script&gt;</code>';
 			echo '<code>&lt;![endif]--&gt;</code>';
+		}
 
+	//	callback fn for respond_js
+		function respond_js_setting() {
+			$options = get_option('plugin_options');
+			$checked = (isset($options['respond_js']) && $options['respond_js']) ? 'checked="checked" ' : '';
+			echo '<input class="check-field" type="checkbox" name="plugin_options[respond_js]" value="true" ' .$checked. '/>';
+			echo '<p><a href="http://filamentgroup.com/lab/respondjs_fast_css3_media_queries_for_internet_explorer_6_8_and_more/">Respond.js</a> is a JS library that helps IE<=8 understand <code>@media</code> queries, specifically <code>min-width</code> and <code>max-width</code>, allowing you to more reliably implement <a href="http://www.alistapart.com/articles/responsive-web-design/">responsive design</a> across all browsers.</p>';
+			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages (note the lack of a version, when you\'re ready to upgrade, simply copy/paste the new version into the file below, and your site is ready to go!):</p>';
+			echo '<code>&lt;script src="' .BP_PLUGIN_URL. 'js/respond.js"&gt;&lt;/script&gt;</code>';
 		}
 
 	//	callback fn for jquery_js
@@ -306,40 +312,16 @@
 			echo '<p>(The single quotes and no-longer-necessary attributes are from WP, would like to fix that... maybe next update...)</p>';
 		}
 
-	//	callback fn for yahoo_profiling_js
-		function yahoo_profiling_js_setting() {
-			$options = get_option('plugin_options');
-			$checked = (isset($options['yahoo_profiling_js']) && $options['yahoo_profiling_js']) ? 'checked="checked" ' : '';
-			echo '<input class="check-field" type="checkbox" name="plugin_options[yahoo_profiling_js]" value="true" ' .$checked. '/>';
-			echo '<p><a href="http://developer.yahoo.com/yui/profiler/">YUI Profiler</a> is a code profiler for JavaScript.  It would only be useful for developers during the development of a site.  It should <strong>not</strong> be included when the site is in production use.</p>';
-			echo '<p>Selecting this option will add the following code to your pages just before the <code>&lt;/body&gt;</code>:</p>';
-			echo '<code>&lt;script type=\'text/javascript\' src=\''.BP_PLUGIN_URL.'js/profiling/yahoo-profiling.min.js\'&gt;&lt;/script&gt;</code>';
-			echo '<code>&lt;script type=\'text/javascript\' src=\''.BP_PLUGIN_URL.'js/profiling/config.js\'&gt;&lt;/script&gt;</code>';
-			echo '<p>(The single quotes and no-longer-necessary attributes are from WP, would like to fix that... maybe next update...)</p>';
-		}
-
-	//	callback fn for belated_png_js
-		function belated_png_js_setting() {
-			$options = get_option('plugin_options');
-			$checked = (isset($options['belated_png_js']) && $options['belated_png_js']) ? 'checked="checked" ' : '';
-			echo '<input class="check-field" type="checkbox" name="plugin_options[belated_png_js]" value="true" ' .$checked. '/>';
-			echo '<p><a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/">DD_belatedPNG</a> adds IE6 support for PNG images used as CSS background images and HTML &lt;img/&gt;</p>';
-			echo '<p>Selecting this option will add the following code to your pages just before the <code>&lt;/body&gt;</code>:</p>';
-			echo '<code>&lt;!--[if lt IE 7]&gt;</code>';
-			echo '<code>&lt;script type=\'text/javascript\' src=\''.BP_PLUGIN_URL.'js/dd_belatedpng.js\'&gt;&lt;/script&gt;</code>';
-			echo '<code>&lt;script&gt;DD_belatedPNG.fix(\'img, .png_bg\');&lt;/script&gt;</code>';
-			echo '<code>&lt;![endif]--&gt;</code>';
-		}
-
 	//	callback fn for google_analytics_js
 		function google_analytics_js_setting() {
 			$options = get_option('plugin_options');
-			$checked = (isset($options['google_analytics_js']) && $options['google_analytics_js'] && isset($options['google_analytics_account']) && str_replace('UA-','',$options['google_analytics_account']) !== 'XXXXX-X') ? 'checked="checked" ' : '';
+			$checked = (isset($options['google_analytics_js']) && $options['google_analytics_js'] && isset($options['google_analytics_account']) && $options['google_analytics_account'] && $options['google_analytics_account'] !== 'XXXXX-X') ? 'checked="checked" ' : '';
 			$account = (isset($options['google_analytics_account']) && $options['google_analytics_account']) ? str_replace('UA-','',$options['google_analytics_account']) : 'XXXXX-X';
+			$msg = ($account === 'XXXXX-X') ? ', where </code>XXXXX-X</code> will be replaced with the code you insert above' : '';
 			echo '<input class="check-field" type="checkbox" name="plugin_options[google_analytics_js]" value="true" ' .$checked. '/>';
 			echo '<p>To include Google Analytics, select this option and include your account number here:<br />';
 			echo 'UA-<input type="text" size="6" name="plugin_options[google_analytics_account]" value="'.$account.'" onfocus="javascript:if(this.value===\'XXXXX-X\'){this.select();}" /></p>';
-			echo '<p>Selecting this option will add the following code to your pages just before the <code>&lt;/body&gt;</code>, where \'UA-XXXXX-X\' will be replaced with the code you insert above:</p>';
+			echo '<p>Selecting this option will add the following code to your pages just before the <code>&lt;/body&gt;</code>'.$msg.':</p>';
 			echo '<code>&lt;script&gt;</code>';
 			echo '<code>var _gaq=[["_setAccount","UA-'.(($account !== 'XXXXX-X') ? $account : 'XXXXX-X').'"],["_trackPageview"]];</code>';
 			echo '<code>(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;</code>';
@@ -437,9 +419,21 @@
 			ob_start("replace_charset");
 		}
 
-	//	$options['chrome']
-		function add_chrome() {
+	//	$options['toolbar']
+		function add_toolbar() {
+			echo '<meta http-equiv="imagetoolbar" content="false" />'.PHP_EOL;
+		}
+
+	//	$options['google_chrome']
+		function add_google_chrome() {
 			echo '<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />'.PHP_EOL;
+		}
+
+	//	$options['google_verification']
+		function add_google_verification() {
+			$options = get_option('plugin_options');
+			$account = $options['google_verification_account'];
+			echo '<meta name="google-site-verification" content="'.$account.'" />'.PHP_EOL;
 		}
 
 	//	$options['viewport']
@@ -455,6 +449,8 @@
 	//	$options['favicon_ithing']
 		function add_favicon_ithing() {
 			echo '<link rel="apple-touch-icon" href="/apple-touch-icon.png" />'.PHP_EOL;
+			echo '<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-ipad.png" />'.PHP_EOL;
+			echo '<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-iphone4.png" />'.PHP_EOL;
 		}
 
 	//	$options['ie_css'];
@@ -463,27 +459,15 @@
 			echo '<!--[if IE ]><link rel="stylesheet" href="'.BP_PLUGIN_URL.'css/ie.css'.$cache.'"><![endif]-->'.PHP_EOL;
 		}
 
-	//	$options['handheld_css']
-		function add_handheld_stylesheet() {
-			$cache = cache_buster();
-			wp_register_style( 'handheld', BP_PLUGIN_URL.'css/handheld.css', array(), str_replace('?ver=','',$cache), 'handheld' );
-			wp_enqueue_style( 'handheld');
-		}
-
-	//	$options['print_css']; implement as: http://www.alistapart.com/articles/return-of-the-mobile-stylesheet ?
-		function add_print_stylesheet() {
-			$cache = cache_buster();
-			wp_register_style( 'print', BP_PLUGIN_URL.'css/print.css', array(), str_replace('?ver=','',$cache), 'print' );
-			wp_enqueue_style( 'print');
-		}
-
 	//	$options['modernizr_js']
 		function add_modernizr_script() {
 			$cache = cache_buster();
 			wp_deregister_script( 'ieshiv' ); // get rid of IEShiv if it somehow got called too (IEShiv is included in Modernizr)
 			wp_deregister_script( 'modernizr' ); // get rid of any native Modernizr
-			echo '<script src="//ajax.cdnjs.com/ajax/libs/modernizr/1.7/modernizr-1.7.min.js"></script>'.PHP_EOL; // try getting from CDN
-			echo '<script>!window.Modernizr && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/modernizr.js'.$cache.'"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
+			//dropping cdnjs per Paul & Divya recommendation, leaving below line as it will hopefully soon become a Google CDN link
+			//echo '<script src="//ajax.cdnjs.com/ajax/libs/modernizr/1.7/modernizr-1.7.min.js"></script>'.PHP_EOL; // try getting from CDN
+			//echo '<script>!window.Modernizr && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/modernizr.js'.$cache.'"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
+			echo '<script src="' .BP_PLUGIN_URL. 'js/modernizr.js'.$cache.'"></script>'.PHP_EOL;
 		}
 
 	//	$options['ieshiv_script']
@@ -493,6 +477,12 @@
 			echo '	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js" onload="window.ieshiv=true;"></script>'.PHP_EOL; // try getting from CDN
 			echo '	<script>!window.ieshiv && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/ieshiv.js'.$cache.'"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
 			echo '<![endif]-->'.PHP_EOL;
+		}
+
+	//	$options['respond_js']
+		function add_respond_script() {
+			$cache = cache_buster();
+			echo '<script src="' .BP_PLUGIN_URL. 'js/respond.js'.$cache.'"></script>'.PHP_EOL;
 		}
 
 	//	$options['jquery_js']
@@ -515,24 +505,6 @@
 			$cache = cache_buster();
 			wp_register_script( 'site_script', BP_PLUGIN_URL . 'js/script.js', array(), str_replace('?ver=','',$cache), true );
 			wp_enqueue_script( 'site_script' );
-		}
-
-	//	$options['yahoo_profiling_js']
-		function add_yahoo_profiling_script() {
-			$cache = cache_buster();
-			wp_register_script( 'yahoo_profiling', BP_PLUGIN_URL . 'js/profiling/yahoo-profiling.min.js', array(), str_replace('?ver=','',$cache), true );
-			wp_enqueue_script( 'yahoo_profiling' );
-			wp_register_script( 'yahoo_profiling_config', BP_PLUGIN_URL . 'js/profiling/config.js', array(), str_replace('?ver=','',$cache), true );
-			wp_enqueue_script( 'yahoo_profiling_config' );
-		}
-
-	//	$options['belated_png_js']
-		function add_belated_png_script() {
-			$cache = cache_buster();
-			echo '<!--[if lt IE 7 ]>'.PHP_EOL;
-			echo '	<script src="' .BP_PLUGIN_URL. 'js/dd_belatedpng.js'.$cache.'"></script>'.PHP_EOL;
-			echo '	<script>DD_belatedPNG.fix(\'img, .png_bg\');</script>'.PHP_EOL;
-			echo '<![endif]-->'.PHP_EOL;
 		}
 
 	//	$options['google_analytics_js']
@@ -593,8 +565,14 @@
 				add_action('get_header', 'start_charset');
 				add_action('wp_head', 'write_charset');
 			}
-			if (isset($options['chrome']) && $options['chrome']) {
-				add_action('wp_print_styles', 'add_chrome');
+			if (isset($options['toolbar']) && $options['toolbar']) {
+				add_action('wp_print_styles', 'add_toolbar');
+			}
+			if (isset($options['google_chrome']) && $options['google_chrome']) {
+				add_action('wp_print_styles', 'add_google_chrome');
+			}
+			if (isset($options['google_verification']) && $options['google_verification'] && $options['google_verification_account'] && $options['google_verification_account'] !== 'XXXXXXXXX...') {
+				add_action('wp_print_styles', 'add_google_verification');
 			}
 			if (isset($options['viewport']) && $options['viewport']) {
 				add_action('wp_print_styles', 'add_viewport');
@@ -610,14 +588,11 @@
 			} else { // if Modernizr isn't selected, add IEShiv inside an IE Conditional Comment
 				add_action('wp_print_styles', 'add_ieshiv_script');
 			}
+			if (isset($options['respond_js']) && $options['respond_js']) {
+				add_action('wp_print_styles', 'add_respond_script');
+			}
 			if (isset($options['ie_css']) && $options['ie_css']) {
 				add_action('wp_print_styles', 'add_ie_stylesheet');
-			}
-			if (isset($options['handheld_css']) && $options['handheld_css']) {
-				add_action('wp_print_styles', 'add_handheld_stylesheet');
-			}
-			if (isset($options['print_css']) && $options['print_css']) {
-				add_action('wp_print_styles', 'add_print_stylesheet');
 			}
 			if (isset($options['jquery_js']) && $options['jquery_js']) {
 				add_action('wp_print_footer_scripts', 'add_jquery_script');
@@ -629,13 +604,7 @@
 			if (isset($options['site_js']) && $options['site_js']) {
 				add_action('wp_loaded', 'add_site_script');
 			}
-			if (isset($options['yahoo_profiling_js']) && $options['yahoo_profiling_js']) {
-				add_action('wp_loaded', 'add_yahoo_profiling_script');
-			}
-			if (isset($options['belated_png_js']) && $options['belated_png_js']) {
-				add_action('wp_footer', 'add_belated_png_script');
-			}
-			if (isset($options['google_analytics_js']) && $options['google_analytics_js']) {
+			if (isset($options['google_analytics_js']) && $options['google_analytics_js'] && isset($options['google_analytics_account']) && $options['google_analytics_account'] && $options['google_analytics_account'] !== 'XXXXX-X') {
 				add_action('wp_footer', 'add_google_analytics_script');
 			}
 			if (isset($options['search_input']) && $options['search_input']) {
