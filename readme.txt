@@ -3,7 +3,7 @@ Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
 Tested up to: 3.1.2
-Stable tag: 3.0
+Stable tag: 3.1
 
 Based on the HTML5 Boilerplate created by Paul Irish and Divya Manian,
 this allows for easy inclusion/removal of all HTML5 Boilerplate options.
@@ -63,9 +63,9 @@ Atg
 
 = What HTML5 Boilerplate options does the plug-in let me manipulate? =
 * Use HTML5 `DOCTYPE`?
-* Add IE Conditional `&lt;html&gt;` Tags?
-* Move XFN profile from `&lt;head&gt;` to `&lt;link&gt;`?
-* Use HTML5 Character-Encoding `&lt;meta&gt;` Tag?
+* Add IE Conditional `<html>` Tags?
+* Move XFN profile from `<head>` to `<link>`?
+* Use HTML5 Character-Encoding `<meta>` Tag?
 * Kill IE6 Image Toolbar?
 * Force IE-edge / Google Chrome?
 * Add Google Verification?
@@ -79,7 +79,7 @@ Atg
 * Add jQuery Plug-ins JS?
 * Add Site-specific JS?
 * Add Google Analytics?
-* Use HTML5 Search `&lt;input&gt;` Type?
+* Use HTML5 Search `<input>` Type?
 * Add Search `placeholder` Text?
 * Add Cache Buster to CSS &amp; JS Files?
 
@@ -93,24 +93,27 @@ Atg
 
 == Changelog ==
 
+= 3.1 =
+2011-06-09:
+Attempting to fix a few odd text appearances.
+
 = 3.0 =
-2011-06-01: Bumping-up revisions a whole knotch, as quite a few changes here...
-Fixed typo on Admin panel (removing trailing `/` in HTML5 doctype), thanks @paul_irish.
-Per Paul & Divya recommendations:
-- Dropping cdnjs link for Modernizr, resorting to local link only, hopefully soon that will be replaced with Google CDN link.
-- Removed handheld.css, because "our research has shown not enough devices read it to make it worthwhile".
-  Additionally, if you're doing your CSS right (a la Responsive Design, you're building for smaller screens first, then adding CSS for larger screens via `@media` queries, right?).
-- Removed print.css because "extra print stylesheets are downloaded at load, so its a big hit"; this, too, is best served via `@media` queries in your main CSS.
-- Removed YUI Profiling stuff because you "probably weren't using it anyway", right?
-- Removed Belated PNG because it "is a really slow solution and an overkill for PNGs", check [http://html5boilerplate.com/docs/#Notes-on-using-PNG](http://html5boilerplate.com/docs/#Notes-on-using-PNG)
-  for deets on dealing with PNGs in ye olde IE.
-Added removal of IE6 Image Toolbar to Admin panel.
-Added iPad and iPhone 4 favicon links to existing "iThing Favicon" block.
-Added [Respond.js](http://filamentgroup.com/lab/respondjs_fast_css3_media_queries_for_internet_explorer_6_8_and_more/) option to Admin panel.
-Added [Google Verification](http://www.google.com/support/webmasters/bin/answer.py?answer=35179) option to Admin panel.
-Updated `/css/style-starter.css` to latest HTML5 Boilerplate version.
-Updated jQuery to 1.6.1.
-Updated `/js/plugins.js` to include `console.log` bit.
+2011-06-01:
+Bumping-up revisions a whole knotch, as quite a few changes here...
+* Fixed typo on Admin panel (removing trailing `/` in HTML5 doctype), thanks @paul_irish.
+* Per Paul & Divya recommendations:
+	- Dropping cdnjs link for Modernizr, resorting to local link only, hopefully soon that will be replaced with Google CDN link.
+	- Removed handheld.css, because "our research has shown not enough devices read it to make it worthwhile". Additionally, if you're doing your CSS right (a la Responsive Design, you're building for smaller screens first, then adding CSS for larger screens via `@media` queries, right?).
+	- Removed print.css because "extra print stylesheets are downloaded at load, so its a big hit"; this, too, is best served via `@media` queries in your main CSS.
+	- Removed YUI Profiling stuff because you "probably weren't using it anyway", right?
+	- Removed Belated PNG because it "is a really slow solution and an overkill for PNGs", check [http://html5boilerplate.com/docs/#Notes-on-using-PNG](http://html5boilerplate.com/docs/#Notes-on-using-PNG) for deets on dealing with PNGs in ye olde IE.
+* Added removal of IE6 Image Toolbar to Admin panel.
+* Added iPad and iPhone 4 favicon links to existing "iThing Favicon" block.
+* Added [Respond.js](http://filamentgroup.com/lab/respondjs_fast_css3_media_queries_for_internet_explorer_6_8_and_more/) option to Admin panel.
+* Added [Google Verification](http://www.google.com/support/webmasters/bin/answer.py?answer=35179) option to Admin panel.
+* Updated `/css/style-starter.css` to latest HTML5 Boilerplate version.
+* Updated jQuery to 1.6.1.
+* Updated `/js/plugins.js` to include `console.log` bit.
 
 = 2.2 =
 2011-05-11:
