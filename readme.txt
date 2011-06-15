@@ -2,8 +2,8 @@
 Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
-Tested up to: 3.1.2
-Stable tag: 3.1
+Tested up to: 3.2
+Stable tag: 3.2
 
 Based on the HTML5 Boilerplate created by Paul Irish and Divya Manian,
 this allows for easy inclusion/removal of all HTML5 Boilerplate options.
@@ -76,6 +76,8 @@ Atg
 * Add Modernizr JS?
 * Add Respond JS?
 * Add jQuery JS?
+* Which jQuery version?
+* Put jQuery in `<head>` or at end of `<body>`?
 * Add jQuery Plug-ins JS?
 * Add Site-specific JS?
 * Add Google Analytics?
@@ -92,6 +94,14 @@ Atg
 
 
 == Changelog ==
+
+= 3.2 =
+2011-06-09:
+Was still calling jQuery 1.5.1, erps!  Not only fixed that, but now allow users to enter version number, so they can upgrade when they want.  Thanks, Micah.
+Line 522 had the wrong function comment.  Thanks, Micah.
+Added option of putting jQuery/plug-ins in the `<head>` to make it more compatible with more plugins.  Thanks, Micah.
+Fixed `ob_end_flush()` issues with some themes.  Thanks, Chris!
+Improved `DOCTYPE`, `<html>` and `<head>` filtering to cover various versions.
 
 = 3.1 =
 2011-06-09:

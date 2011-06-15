@@ -6,7 +6,7 @@
 	Plugin Name: HTML5 Boilerplate
 	Plugin URI: http://aarontgrogg.com/html5boilerplate/
 	Description: Based on the <a href="http://html5boilerplate.com/" target="_blank">HTML5 Boilerplate</a> created by <a href="http://paulirish.com" target="_blank">Paul Irish</a> and <a href="http://nimbupani.com" target="_blank">Divya Manian</a>, this plug-in allows for easy inclusion and removal of all HTML5 Boilerplate options pertinent to WP.  More about this plug-in can be found at <a href="http://aarontgrogg.com/html5boilerplate/">http://aarontgrogg.com/html5boilerplate/</a>.
-	Version: 3.1
+	Version: 3.2
 	Author: Aaron T. Grogg, based on the work of Paul Irish & Divya Manian
 	Author URI: http://aarontgrogg.com/
 	License: GPLv2 or later
@@ -83,7 +83,7 @@
 			add_settings_field('plugins_js', 'jQuery Plug-ins JS?:', 'plugins_js_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('site_js', 'Site-specific JS?:', 'site_js_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('google_analytics_js', 'Google Analytics?:', 'google_analytics_js_setting', 'boilerplate-admin', 'main_section');
-			add_settings_field('search_input', 'HTML5 Search?:', 'search_input_setting', 'boilerplate-admin', 'main_section');
+			add_settings_field('search_placeholder_text', 'HTML5 Search?:', 'search_placeholder_text_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('cache_buster', 'Cache-Buster?:', 'cache_buster_setting', 'boilerplate-admin', 'main_section');
 		}
 		add_action('admin_init', 'register_and_build_fields');
@@ -254,9 +254,9 @@
 			echo '<input class="check-field" type="checkbox" name="plugin_options[modernizr_js]" value="true" ' .$checked. '/>';
 			echo '<p><a href="http://modernizr.com/">Modernizr</a> is a JS library that appends classes to the <code>&lt;html&gt;</code> that indicate whether the user\'s browser is capable of handling advanced CSS, like "cssreflections" or "no-cssreflections".  It\'s a really handy way to apply varying CSS techniques, depending on the user\'s browser\'s abilities, without resorting to CSS hacks.</p>';
 			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages (note the lack of a version, when you\'re ready to upgrade, simply copy/paste the new version into the file below, and your site is ready to go!):</p>';
-			//dropping cdnjs per Paul & Divya recommendation, leaving below line as it will hopefully soon become a Google CDN link
-			//echo '<code>&lt;script src="//ajax.cdnjs.com/ajax/libs/modernizr/1.7/modernizr-1.7.min.js"&gt;&lt;/script&gt;</code>';
-			//echo '<code>&lt;script&gt;!window.Modernizr && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/modernizr.js"%3E%3C/script%3E\'))&lt;/script&gt;</code>';
+			// dropping cdnjs per Paul & Divya recommendation, leaving below line as it will hopefully soon become a Google CDN link
+			// echo '<code>&lt;script src="//ajax.cdnjs.com/ajax/libs/modernizr/1.7/modernizr-1.7.min.js"&gt;&lt;/script&gt;</code>';
+			// echo '<code>&lt;script&gt;!window.Modernizr && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/modernizr.js"%3E%3C/script%3E\'))&lt;/script&gt;</code>';
 			echo '<code>&lt;script src="' .BP_PLUGIN_URL. 'js/modernizr.js"&gt;&lt;/script&gt;</code>';
 			echo '<p><strong>Note: If you do <em>not</em> include Modernizr, the IEShiv JS <em>will</em> be added to accommodate the HTML5 elements used in Boilerplate in weaker browsers:</strong></p>';
 			echo '<code>&lt;!--[if lt IE 9]&gt;</code>';
@@ -279,12 +279,18 @@
 		function jquery_js_setting() {
 			$options = get_option('plugin_options');
 			$checked = (isset($options['jquery_js']) && $options['jquery_js']) ? 'checked="checked" ' : '';
+			$version = (isset($options['jquery_version']) && $options['jquery_version'] && $options['jquery_version'] !== '') ? $options['jquery_version'] : '1.6.1';
+			$inhead = (isset($options['jquery_head']) && $options['jquery_head']) ? 'checked="checked" ' : '';
 			echo '<input class="check-field" type="checkbox" name="plugin_options[jquery_js]" value="true" ' .$checked. '/>';
 			echo '<p><a href="http://jquery.com/">jQuery</a> is a JS library that aids greatly in developing high-quality JavaScript quickly and efficiently.</p>';
 			echo '<p>Selecting this option will add the following code to your pages just before the <code>&lt;/body&gt;</code>:</p>';
-			echo '<code>&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js">&lt;/script&gt;</code>';
+			echo '<code>&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/'.$version.'/jquery.min.js">&lt;/script&gt;</code>';
 			echo '<code>&lt;script&gt;!window.jQuery && document.write(unescape(\'%3Cscript src="'.BP_PLUGIN_URL.'js/jquery.js"%3E%3C/script%3E\'))&lt;/script&gt;</code>';
+			echo '<p><input class="check-field" type="checkbox" name="plugin_options[jquery_head]" value="true" ' .$inhead. '/>';
+			echo '<strong>Note: <a href="http://developer.yahoo.com/blogs/ydn/posts/2007/07/high_performanc_5/">Best-practices</a> recommend that you load JS as close to the <code>&lt;/body&gt;</code> as possible.  If for some reason you would prefer jQuery and jQuery plug-ins to be in the <code>&lt;head&gt;</code>, please select this option.</strong></p>';
 			echo '<p>The above code first tries to download jQuery from Google\'s CDN (which might be available via the user\'s browser cache).  If this is not successful, it uses the theme\'s version.</p>';
+			echo '<p><strong>Note: This plug-in tries to keep current with the most recent version of jQuery.  If for some reason you would prefer to use another version, please indicate that version:</strong><br />';
+			echo '<input type="text" size="6" name="plugin_options[jquery_version]" value="'.$version.'" /> (<a href="http://code.google.com/apis/libraries/devguide.html#jquery">see all versions available via Google\'s CDN</a>)</p>';
 		}
 
 	//	callback fn for plugins_js
@@ -331,12 +337,12 @@
 			echo '<p><strong>Note: You must check the box <em>and</em> provide a UA code for this to be added to your pages.</strong></p>';
 		}
 
-	//	callback fn for search_input
-		function search_input_setting() {
+	//	callback fn for search_placeholder_text
+		function search_placeholder_text_setting() {
 			$options = get_option('plugin_options');
-			$checked = (isset($options['search_input']) && $options['search_input']) ? 'checked="checked" ' : '';
+			$checked = (isset($options['search_placeholder_text']) && $options['search_placeholder_text']) ? 'checked="checked" ' : '';
 			$placeholder = (isset($options['search_placeholder_text']) && $options['search_placeholder_text']) ? $options['search_placeholder_text'] : '';
-			echo '<input class="check-field" type="checkbox" name="plugin_options[search_input]" value="true" ' .$checked. '/>';
+			echo '<input class="check-field" type="checkbox" name="plugin_options[search_placeholder_text]" value="true" ' .$checked. '/>';
 			echo '<p>HTML5 allows numerous new input <code>type</code>s, including <code>type="search"</code>.  These new <code>type</code>s default to <code>type="text"</code> if the browser doesn\'t understand the new <code>type</code>, so there is no real penalty to using the new ones.  ';
 			echo 'The new <code>search</code> also comes with a new <code>placeholder</code> attribute (sample text); to include <code>placeholder</code> text, type something here:<br />';
 			echo '<input type="text" size="10" name="plugin_options[search_placeholder_text]" value="'.$placeholder.'" /></p>';
@@ -362,9 +368,13 @@
 
 	//	$options['doctype']
 		function replace_doctype($buffer) {
-			$old = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-			$new = '<!DOCTYPE html>';
-			return (str_replace($old, $new, $buffer));
+			$new = $buffer;
+			$new = str_replace(' PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"', '', $new);
+			$new = str_replace(' PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"', '', $new);
+			$new = str_replace(' PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd', '', $new);
+			$new = str_replace(' PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"', '', $new);
+			$new = str_replace(' PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"', '', $new);
+			return $new;
 		}
 		function write_doctype() {
 			ob_end_flush();
@@ -375,13 +385,33 @@
 
 	//	$options['html']
 		function replace_html($buffer) {
-			$old = '<html xmlns="http://www.w3.org/1999/xhtml" dir="'.get_bloginfo('text_direction').'" lang="'.get_bloginfo('language').'">';
-			$new = '<!--[if lt IE 7 ]><html dir="'.get_bloginfo('text_direction').'" lang="'.get_bloginfo('language').'" class="no-js ie ie6 lte7 lte8 lte9"><![endif]-->'.PHP_EOL;
-			$new .= '<!--[if IE 7 ]><html dir="'.get_bloginfo('text_direction').'" lang="'.get_bloginfo('language').'" class="no-js ie ie7 lte7 lte8 lte9"><![endif]-->'.PHP_EOL;
-			$new .= '<!--[if IE 8 ]><html dir="'.get_bloginfo('text_direction').'" lang="'.get_bloginfo('language').'" class="no-js ie ie8 lte8 lte9"><![endif]-->'.PHP_EOL;
-			$new .= '<!--[if IE 9 ]><html dir="'.get_bloginfo('text_direction').'" lang="'.get_bloginfo('language').'" class="no-js ie ie9 lte9"><![endif]-->'.PHP_EOL;
-			$new .= '<!--[if (gt IE 9)|!(IE)]><!--><html dir="'.get_bloginfo('text_direction').'" lang="'.get_bloginfo('language').'" class="no-js"><!--<![endif]-->';
-			return (str_replace($old, $new, $buffer));
+			$new = $buffer;
+			// kill xml namespace
+			$new = str_replace(' xmlns="http://www.w3.org/1999/xhtml"', '', $new);
+			// insert dir if missing
+			if (!strpos($new,'dir=') && get_bloginfo('text_direction')) {
+				$new = str_replace('<html', '<html dir="'.get_bloginfo('text_direction').'"', $new);
+			}
+			// insert lang if missing
+			if (!strpos($new,'lang=') && get_bloginfo('language')) {
+				$new = str_replace('<html', '<html lang="'.get_bloginfo('language').'"', $new);
+			}
+			// isolate updated <html> tag
+			$html = $new;
+			$html = preg_split('/<html/', $html);
+			$html = preg_split('/> \r|>\r\n|>\r|>\n/', '<html'.$html[1]);
+			$html = $html[0];
+			// replace single <html> with series of conditional comments
+			$ie6 = '<!--[if lt IE 7 ]>'.$html.' class="no-js ie ie6 lte7 lte8 lte9"><![endif]-->'.PHP_EOL;
+			$ie7 = '<!--[if IE 7 ]>'.$html.' class="no-js ie ie7 lte7 lte8 lte9"><![endif]-->'.PHP_EOL;
+			$ie8 = '<!--[if IE 8 ]>'.$html.' class="no-js ie ie8 lte8 lte9"><![endif]-->'.PHP_EOL;
+			$ie9 = '<!--[if IE 9 ]>'.$html.' class="no-js ie ie9 lte9"><![endif]-->'.PHP_EOL;
+			$not = '<!--[if (gt IE 9)|!(IE)]><!-->'.$html.' class="no-js"><!--<![endif]--'; // leave off last >, carried-over from preg_split
+			$html5 = $ie6.$ie7.$ie8.$ie9.$not;
+			// perform final replacement
+			$new = str_replace($html, $html5, $new);
+			// return completed block
+			return $new;
 		}
 		function write_html() {
 			ob_end_flush();
@@ -392,9 +422,9 @@
 
 	//	$options['head']
 		function replace_head($buffer) {
-			$old = '<head profile="http://gmpg.org/xfn/11">';
-			$new = '<head>';
-			return (str_replace($old, $new, $buffer));
+			$new = $buffer;
+			$new = str_replace(' profile="http://gmpg.org/xfn/11"', '', $new);
+			return $new;
 		}
 		function write_head() {
 			ob_end_flush();
@@ -408,9 +438,10 @@
 
 	//	$options['charset']
 		function replace_charset($buffer) {
-			$old = '<meta http-equiv="Content-Type" content="text/html; charset=' . get_bloginfo('charset') . '" />';
-			$new = '<meta charset="' . get_bloginfo('charset') . '" />';
-			return (str_replace($old, $new, $buffer));
+			$new = $buffer;
+			$new = str_replace(' http-equiv="Content-Type"', '', $new);
+			$new = str_replace(' content="text/html; charset='.get_bloginfo('charset').'"', ' charset="'.get_bloginfo('charset').'"', $new);
+			return $new;
 		}
 		function write_charset() {
 			ob_end_flush();
@@ -488,16 +519,19 @@
 	//	$options['jquery_js']
 		function add_jquery_script() {
 			$cache = cache_buster();
+			$options = get_option('plugin_options');
+			$version = ($options['jquery_version']) ? $options['jquery_version'] : '1.6.1';
 			wp_deregister_script( 'jquery' ); // get rid of WP's jQuery
-			echo '<script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>'.PHP_EOL; // try getting from CDN
+			echo '<script src="//ajax.googleapis.com/ajax/libs/jquery/'.$version.'/jquery.min.js"></script>'.PHP_EOL; // try getting from CDN
 			echo '<script>!window.jQuery && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/jquery.js'.$cache.'"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
 		}
 
 	//	$options['plugins_js']
 		function add_plugin_script() {
 			$cache = cache_buster();
-			wp_register_script( 'plug_ins', BP_PLUGIN_URL . 'js/plugins.js', array(), str_replace('?ver=','',$cache), true );
-			wp_enqueue_script( 'plug_ins' );
+			//wp_register_script( 'plug_ins', BP_PLUGIN_URL . 'js/plugins.js', array(), str_replace('?ver=','',$cache), true );
+			//wp_enqueue_script( 'plug_ins' );
+			echo '<script src="' .BP_PLUGIN_URL. 'js/plugins.js'.$cache.'"></script>'.PHP_EOL;
 		}
 
 	//	$options['site_js']
@@ -519,8 +553,8 @@
 			echo '</script>'.PHP_EOL;
 		}
 
-	//	$options['google_analytics_js']
-		function search_input($form ) {
+	//	$options['search_placeholder_text']
+		function search_placeholder_text($form ) {
 			$options = get_option('plugin_options');
 			$placeholder = $options['search_placeholder_text'];
 			$form = '<form role="search" method="get" id="searchform" action="' . home_url( '/' ) . '" >
@@ -594,12 +628,14 @@
 			if (isset($options['ie_css']) && $options['ie_css']) {
 				add_action('wp_print_styles', 'add_ie_stylesheet');
 			}
-			if (isset($options['jquery_js']) && $options['jquery_js']) {
-				add_action('wp_print_footer_scripts', 'add_jquery_script');
+			if (isset($options['jquery_js']) && $options['jquery_js'] && isset($options['jquery_version']) && $options['jquery_version'] && $options['jquery_version'] !== '') {
+				$action = (isset($options['jquery_head']) && $options['jquery_head']) ? 'wp_print_styles' : 'wp_print_footer_scripts';
+				add_action($action, 'add_jquery_script');
 			}
 			// for jQuery plug-ins, make sure jQuery was also set
 			if (isset($options['jquery_js']) && $options['jquery_js'] && isset($options['plugins_js']) && $options['plugins_js']) {
-				add_action('wp_loaded', 'add_plugin_script');
+				$action = (isset($options['jquery_head']) && $options['jquery_head']) ? 'wp_print_styles' : 'wp_print_footer_scripts';
+				add_action($action, 'add_plugin_script');
 			}
 			if (isset($options['site_js']) && $options['site_js']) {
 				add_action('wp_loaded', 'add_site_script');
@@ -607,8 +643,8 @@
 			if (isset($options['google_analytics_js']) && $options['google_analytics_js'] && isset($options['google_analytics_account']) && $options['google_analytics_account'] && $options['google_analytics_account'] !== 'XXXXX-X') {
 				add_action('wp_footer', 'add_google_analytics_script');
 			}
-			if (isset($options['search_input']) && $options['search_input']) {
-				add_filter( 'get_search_form', 'search_input');
+			if (isset($options['search_placeholder_text']) && $options['search_placeholder_text']) {
+				add_filter( 'get_search_form', 'search_placeholder_text');
 			}
 		}
 
