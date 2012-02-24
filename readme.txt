@@ -3,7 +3,7 @@ Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
 Tested up to: 3.3.1
-Stable tag: 3.4
+Stable tag: 3.4.1
 
 Based on the HTML5 Boilerplate created by Paul Irish and Divya Manian,
 this allows for easy inclusion/removal of all HTML5 Boilerplate options.
@@ -95,8 +95,8 @@ Atg
 
 == Changelog ==
 
-= 3.4 =
-Missed a couple files...
+= 3.4.1 =
+I hate SVN some times...
 
 = 3.3 =
 2012-02-24:
