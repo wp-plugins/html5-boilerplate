@@ -6,7 +6,7 @@
 	Plugin Name: HTML5 Boilerplate
 	Plugin URI: http://aarontgrogg.com/html5boilerplate/
 	Description: Based on the <a href="http://html5boilerplate.com/" target="_blank">HTML5 Boilerplate</a> created by <a href="http://paulirish.com" target="_blank">Paul Irish</a> and <a href="http://nimbupani.com" target="_blank">Divya Manian</a>, this plug-in allows for easy inclusion and removal of all HTML5 Boilerplate options pertinent to WP.  More about this plug-in can be found at <a href="http://aarontgrogg.com/html5boilerplate/">http://aarontgrogg.com/html5boilerplate/</a>.
-	Version: 3.2
+	Version: 3.3
 	Author: Aaron T. Grogg, based on the work of Paul Irish & Divya Manian
 	Author URI: http://aarontgrogg.com/
 	License: GPLv2 or later
@@ -17,8 +17,6 @@
 	define('BP_PLUGIN_URL', WP_PLUGIN_URL.'/html5-boilerplate/');
 
 /*
- 	Begin HTML5 Boilerplate Admin panel.
-
 	There are essentially 5 sections to this:
 	1)	Add "HTML5 Boilerplate Admin" link to left-nav Admin Menu & callback function for clicking that menu link
 	2)	Add Admin Page CSS if on the Admin Page
@@ -27,7 +25,7 @@
 	5)	Add HTML5 Boilerplate options to page as requested
 */
 
-/*	1)	Add "HTML5 Boilerplate" link to left-nav Admin Menu */
+/*	1)	Add "HTML5 Boilerplate" link to left-nav Admin Menu & callback function for clicking that menu link */
 
 	//	Add option if in Admin Page
 		function create_boilerplate_admin_page() {
@@ -47,7 +45,7 @@
 				<form method="post" action="options.php" enctype="multipart/form-data">
 					<?php settings_fields('plugin_options'); /* very last function on this page... */ ?>
 					<?php do_settings_sections('boilerplate-admin'); /* let's get started! */?>
-					<p class="submit"><input name="Submit" type="submit" class="button-primary" value="<?php esc_attr_e('Save Changes'); ?>" /></p>
+					<p class="submit"><input name="Submit" type="submit" class="button-primary" value="<?php esc_attr_e('Save Changes'); ?>"></p>
 				</form>
 			</div>
 		<?php
@@ -56,11 +54,11 @@
 /*	2)	Add Admin Page CSS if on the Admin Page */
 
 		function admin_register_head() {
-			echo '<link rel="stylesheet" href="' .BP_PLUGIN_URL. 'admin-style.css" />'.PHP_EOL;
+			echo '<link rel="stylesheet" href="' .BP_PLUGIN_URL. 'admin-style.css">'.PHP_EOL;
 		}
 		add_action('admin_head', 'admin_register_head');
 
-/*	3)	Add "Boilerplate Admin" Page options */
+/*	3)	Add "HTML5 Boilerplate Admin" Page options */
 
 	//	Register form elements
 		function register_and_build_fields() {
@@ -153,7 +151,7 @@
 			echo '<input class="check-field" type="checkbox" name="plugin_options[head]" value="true" ' .$checked. '/>';
 			echo '<p>Many themes have the <a href="http://gmpg.org/xfn/1">XFN profile</a> link as an attribute to the <code>&lt;head&gt;</code>, which does not validate.  The XFN profile should be moved to a <code>&lt;link&gt;</code> inside the <code>&lt;head&gt;</code>';
 			echo '<p>Selecting this option will replace your existing <code>&lt;head profile="http://gmpg.org/xfn/11"&gt;</code> with <code>&lt;head&gt;</code> and add the following code inside the <code>&lt;head&gt;</code> on all of your pages:</p>';
-			echo '<code>&lt;link rel="profile" href="http://gmpg.org/xfn/11" /&gt;</code>';
+			echo '<code>&lt;link rel="profile" href="http://gmpg.org/xfn/11"&gt;</code>';
 		}
 
 	//	callback fn for charset
@@ -163,7 +161,7 @@
 			echo '<input class="check-field" type="checkbox" name="plugin_options[charset]" value="true" ' .$checked. '/>';
 			echo '<p>Replace old-school, long-hand character-encoding <code>&lt;meta&gt;</code> with HTML5-version.</p>';
 			echo '<p>Selecting this option will replace your existing character-encoding <code>&lt;meta&gt;</code> with the following code on all of your pages:</p>';
-			echo '<code>&lt;meta charset="' . get_bloginfo('charset') . '" /&gt;</code>';
+			echo '<code>&lt;meta charset="' . get_bloginfo('charset') . '"&gt;</code>';
 		}
 
 	//	callback fn for toolbar
@@ -173,7 +171,7 @@
 			echo '<input class="check-field" type="checkbox" name="plugin_options[toolbar]" value="true" ' .$checked. '/>';
 			echo '<p>Kill the IE6 Image Toolbar that appears when users hover over images on your site.</p>';
 			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages:</p>';
-			echo '<code>&lt;meta http-equiv="imagetoolbar" content="false" /&gt;</code>';
+			echo '<code>&lt;meta http-equiv="imagetoolbar" content="false"&gt;</code>';
 		}
 
 	//	callback fn for google_chrome
@@ -183,7 +181,7 @@
 			echo '<input class="check-field" type="checkbox" name="plugin_options[google_chrome]" value="true" ' .$checked. '/>';
 			echo '<p>Force the most-recent IE rendering engine or users with <a href="http://www.chromium.org/developers/how-tos/chrome-frame-getting-started">Google Chrome Frame</a> installed to see your site using Google Frame.</p>';
 			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages:</p>';
-			echo '<code>&lt;meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /&gt;</code>';
+			echo '<code>&lt;meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"&gt;</code>';
 		}
 
 	//	callback fn for google_verification
@@ -195,9 +193,9 @@
 			echo '<input class="check-field" type="checkbox" name="plugin_options[google_verification]" value="true" ' .$checked. '/>';
 			echo '<p>Add <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=35179">Google Verificaton</a> code to the <code>&lt;head&gt;</code> of all your pages.</p>';
 			echo '<p>To include Google Verificaton, select this option and include your Verificaton number here:<br />';
-			echo '<input type="text" size="40" name="plugin_options[google_verification_account]" value="'.$account.'" onfocus="javascript:if(this.value===\'XXXXXXXXX...\'){this.select();}" /></p>';
+			echo '<input type="text" size="40" name="plugin_options[google_verification_account]" value="'.$account.'" onfocus="javascript:if(this.value===\'XXXXXXXXX...\'){this.select();}"></p>';
 			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages'.$msg.'</p>';
-			echo '<code>&lt;meta name="google-site-verification" content="'.$account.'" /&gt;</code>';
+			echo '<code>&lt;meta name="google-site-verification" content="'.$account.'"&gt;</code>';
 		}
 
 	//	callback fn for viewport
@@ -207,7 +205,7 @@
 			echo '<input class="check-field" type="checkbox" name="plugin_options[viewport]" value="true" ' .$checked. '/>';
 			echo '<p>Force <em><abbr title="iPhone, iTouch, iPad...">iThings</abbr></em> to <a href="http://developer.apple.com/library/safari/#documentation/AppleApplications/Reference/SafariWebContent/UsingtheViewport/UsingtheViewport.html#//apple_ref/doc/uid/TP40006509-SW19">show site at full-zoom</a>, instead of trying to show the entire page.</p>';
 			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages:</p>';
-			echo '<code>&lt;meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" /&gt;</code>';
+			echo '<code>&lt;meta name="viewport" content="width=device-width"&gt;</code>';
 		}
 
 	//	callback fn for favicon
@@ -218,7 +216,7 @@
 			echo '<p>If you plan to use a <a href="http://en.wikipedia.org/wiki/Favicon">favicon</a> for your site, place the "favicon.ico" file in the root directory of your site.</p>';
 			echo '<p>If the file is in the right location, you don\'t really need to select this option, browsers will automatically look there and no additional code will be added to your pages.</p>';
 			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages:</p>';
-			echo '<code>&lt;link rel="shortcut icon" href="/favicon.ico" /&gt;</code>';
+			echo '<code>&lt;link rel="shortcut icon" href="/favicon.ico"&gt;</code>';
 		}
 
 	//	callback fn for favicon_ithing
@@ -229,9 +227,10 @@
 			echo '<p>To allow <em><abbr title="iPhone, iTouch, iPad...">iThing</abbr></em> users to <a href="http://developer.apple.com/library/safari/#documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">add an icon for your site to their Home screen</a>, place the "apple-touch-icon.png" file in the root directory of your site.</p>';
 			echo '<p>If the file is in the right location, you don\'t really need to select this option, browsers will automatically look there and no additional code will be added to your pages.</p>';
 			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages:</p>';
-			echo '<code>&lt;link rel="apple-touch-icon" href="/apple-touch-icon.png" /&gt;</code>';
-			echo '<code>&lt;link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-ipad.png" /&gt;</code>';
-			echo '<code>&lt;link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-iphone4.png" /&gt;</code>';
+			echo '<code>&lt;link rel="apple-touch-icon" href="/apple-touch-icon.png"&gt;</code>';
+			echo '<code>&lt;link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png"&gt;</code>';
+			echo '<code>&lt;link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png"&gt;</code>';
+			echo '<code>&lt;link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png"&gt;</code>';
 		}
 
 	//	callback fn for ie_css
@@ -244,7 +243,7 @@
 			echo '<p><strong>I recommend adding any custom IE-specific CSS to this file and either copying from the starter file or using an <code>@import</code> to add the starter file rather than editing the starter file itself.  This will help to avoid your changes being overwritten during upgrades.</strong></p>';
 			echo '<p><strong>And remember</strong>, you don\'t need IE-specific hacks if you activate the IE-Conditional <code>&lt;html&gt;</code> above, because you can target IE specifically by using the IE classes that are being added to <code>&lt;html&gt;</code>.  Sweet!</p>';
 			echo '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages:</p>';
-			echo '<code>&lt;!--[if IE ]&gt;&lt;link rel="stylesheet" href="'.BP_PLUGIN_URL.'css/ie.css" /&gt;&lt;![endif]--&gt;</code>';
+			echo '<code>&lt;!--[if IE ]&gt;&lt;link rel="stylesheet" href="'.BP_PLUGIN_URL.'css/ie.css"&gt;&lt;![endif]--&gt;</code>';
 		}
 
 	//	callback fn for modernizr_js
@@ -290,7 +289,7 @@
 			echo '<strong>Note: <a href="http://developer.yahoo.com/blogs/ydn/posts/2007/07/high_performanc_5/">Best-practices</a> recommend that you load JS as close to the <code>&lt;/body&gt;</code> as possible.  If for some reason you would prefer jQuery and jQuery plug-ins to be in the <code>&lt;head&gt;</code>, please select this option.</strong></p>';
 			echo '<p>The above code first tries to download jQuery from Google\'s CDN (which might be available via the user\'s browser cache).  If this is not successful, it uses the theme\'s version.</p>';
 			echo '<p><strong>Note: This plug-in tries to keep current with the most recent version of jQuery.  If for some reason you would prefer to use another version, please indicate that version:</strong><br />';
-			echo '<input type="text" size="6" name="plugin_options[jquery_version]" value="'.$version.'" /> (<a href="http://code.google.com/apis/libraries/devguide.html#jquery">see all versions available via Google\'s CDN</a>)</p>';
+			echo '<input type="text" size="6" name="plugin_options[jquery_version]" value="'.$version.'"> (<a href="http://code.google.com/apis/libraries/devguide.html#jquery">see all versions available via Google\'s CDN</a>)</p>';
 		}
 
 	//	callback fn for plugins_js
@@ -326,7 +325,7 @@
 			$msg = ($account === 'XXXXX-X') ? ', where </code>XXXXX-X</code> will be replaced with the code you insert above' : '';
 			echo '<input class="check-field" type="checkbox" name="plugin_options[google_analytics_js]" value="true" ' .$checked. '/>';
 			echo '<p>To include Google Analytics, select this option and include your account number here:<br />';
-			echo 'UA-<input type="text" size="6" name="plugin_options[google_analytics_account]" value="'.$account.'" onfocus="javascript:if(this.value===\'XXXXX-X\'){this.select();}" /></p>';
+			echo 'UA-<input type="text" size="6" name="plugin_options[google_analytics_account]" value="'.$account.'" onfocus="javascript:if(this.value===\'XXXXX-X\'){this.select();}"></p>';
 			echo '<p>Selecting this option will add the following code to your pages just before the <code>&lt;/body&gt;</code>'.$msg.':</p>';
 			echo '<code>&lt;script&gt;</code>';
 			echo '<code>var _gaq=[["_setAccount","UA-'.(($account !== 'XXXXX-X') ? $account : 'XXXXX-X').'"],["_trackPageview"]];</code>';
@@ -345,7 +344,7 @@
 			echo '<input class="check-field" type="checkbox" name="plugin_options[search_placeholder_text]" value="true" ' .$checked. '/>';
 			echo '<p>HTML5 allows numerous new input <code>type</code>s, including <code>type="search"</code>.  These new <code>type</code>s default to <code>type="text"</code> if the browser doesn\'t understand the new <code>type</code>, so there is no real penalty to using the new ones.  ';
 			echo 'The new <code>search</code> also comes with a new <code>placeholder</code> attribute (sample text); to include <code>placeholder</code> text, type something here:<br />';
-			echo '<input type="text" size="10" name="plugin_options[search_placeholder_text]" value="'.$placeholder.'" /></p>';
+			echo '<input type="text" size="10" name="plugin_options[search_placeholder_text]" value="'.$placeholder.'"></p>';
 			echo '<p>Selecting this option will replace your existing <code>&lt;input type="text"...&gt;</code> with the following code on all of your pages:</p>';
 			echo '<code>&lt;input type="search" placeholder="'.$placeholder.'"... /&gt;</code>';
 		}
@@ -358,7 +357,7 @@
 			echo '<input class="check-field" type="checkbox" name="plugin_options[cache_buster]" value="true" ' .$checked. '/>';
 			echo '<p>To force browsers to fetch a new version of a file, versus one it might already have cached, you can add a "cache buster" to the end of your CSS and JS files.  ';
 			echo 'To increment the cache buster version number, type something here:<br />';
-			echo '<input type="text" size="4" name="plugin_options[cache_buster_version]" value="'.$version.'" /></p>';
+			echo '<input type="text" size="4" name="plugin_options[cache_buster_version]" value="'.$version.'"></p>';
 			echo '<p>Selecting this option will add the following code to the end of all of your CSS and JS file names on all of your pages:</p>';
 			echo '<code>?ver='.$version.'</code>';
 		}
@@ -433,7 +432,7 @@
 			ob_start("replace_head");
 		}
 		function add_xfn() {
-			echo '<link rel="profile" href="http://gmpg.org/xfn/11" />'.PHP_EOL;
+			echo '<link rel="profile" href="http://gmpg.org/xfn/11">'.PHP_EOL;
 		}
 
 	//	$options['charset']
@@ -452,36 +451,37 @@
 
 	//	$options['toolbar']
 		function add_toolbar() {
-			echo '<meta http-equiv="imagetoolbar" content="false" />'.PHP_EOL;
+			echo '<meta http-equiv="imagetoolbar" content="false">'.PHP_EOL;
 		}
 
 	//	$options['google_chrome']
 		function add_google_chrome() {
-			echo '<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />'.PHP_EOL;
+			echo '<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">'.PHP_EOL;
 		}
 
 	//	$options['google_verification']
 		function add_google_verification() {
 			$options = get_option('plugin_options');
 			$account = $options['google_verification_account'];
-			echo '<meta name="google-site-verification" content="'.$account.'" />'.PHP_EOL;
+			echo '<meta name="google-site-verification" content="'.$account.'">'.PHP_EOL;
 		}
 
 	//	$options['viewport']
 		function add_viewport() {
-			echo '<meta name="viewport" content="width=device-width, initial-scale=1.0" />'.PHP_EOL;
+			echo '<meta name="viewport" content="width=device-width">'.PHP_EOL;
 		}
 
 	//	$options['favicon']
 		function add_favicon() {
-			echo '<link rel="shortcut icon" href="/favicon.ico" />'.PHP_EOL;
+			echo '<link rel="shortcut icon" href="/favicon.ico">'.PHP_EOL;
 		}
 
 	//	$options['favicon_ithing']
 		function add_favicon_ithing() {
-			echo '<link rel="apple-touch-icon" href="/apple-touch-icon.png" />'.PHP_EOL;
-			echo '<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-ipad.png" />'.PHP_EOL;
-			echo '<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-iphone4.png" />'.PHP_EOL;
+			echo '<link rel="apple-touch-icon" href="/apple-touch-icon.png">'.PHP_EOL;
+			echo '<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">'.PHP_EOL;
+			echo '<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">'.PHP_EOL;
+			echo '<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">'.PHP_EOL;
 		}
 
 	//	$options['ie_css'];
@@ -520,10 +520,10 @@
 		function add_jquery_script() {
 			$cache = cache_buster();
 			$options = get_option('plugin_options');
-			$version = ($options['jquery_version']) ? $options['jquery_version'] : '1.6.1';
+			$version = ($options['jquery_version']) ? $options['jquery_version'] : '1.7.1';
 			wp_deregister_script( 'jquery' ); // get rid of WP's jQuery
 			echo '<script src="//ajax.googleapis.com/ajax/libs/jquery/'.$version.'/jquery.min.js"></script>'.PHP_EOL; // try getting from CDN
-			echo '<script>!window.jQuery && document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/jquery.js'.$cache.'"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
+			echo '<script>window.jQuery || document.write(unescape(\'%3Cscript src="' .BP_PLUGIN_URL. 'js/jquery.js'.$cache.'"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
 		}
 
 	//	$options['plugins_js']
@@ -537,8 +537,9 @@
 	//	$options['site_js']
 		function add_site_script() {
 			$cache = cache_buster();
-			wp_register_script( 'site_script', BP_PLUGIN_URL . 'js/script.js', array(), str_replace('?ver=','',$cache), true );
-			wp_enqueue_script( 'site_script' );
+			//wp_register_script( 'site_script', BP_PLUGIN_URL . 'js/script.js', array(), str_replace('?ver=','',$cache), true );
+			//wp_enqueue_script( 'site_script' );
+			echo '<script src="' .BP_PLUGIN_URL. 'js/script.js'.$cache.'"></script>'.PHP_EOL;
 		}
 
 	//	$options['google_analytics_js']
@@ -547,7 +548,7 @@
 			$account = $options['google_analytics_account'];
 			echo PHP_EOL.'<script>'.PHP_EOL;
 			echo 'var _gaq=[["_setAccount","UA-'.str_replace('UA-','',$account).'"],["_trackPageview"]];'.PHP_EOL;
-			echo '(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;'.PHP_EOL;
+			echo '(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];'.PHP_EOL;
 			echo 'g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";'.PHP_EOL;
 			echo 's.parentNode.insertBefore(g,s)}(document,"script"));'.PHP_EOL;
 			echo '</script>'.PHP_EOL;
@@ -559,8 +560,8 @@
 			$placeholder = $options['search_placeholder_text'];
 			$form = '<form role="search" method="get" id="searchform" action="' . home_url( '/' ) . '" >
 			<div><label class="screen-reader-text" for="s">' . __('Search for:') . '</label>
-			<input type="search" placeholder="'.$placeholder.'" value="' . get_search_query() . '" name="s" id="s" />
-			<input type="submit" id="searchsubmit" value="'. esc_attr__('Search') .'" />
+			<input type="search" placeholder="'.$placeholder.'" value="' . get_search_query() . '" name="s" id="s">
+			<input type="submit" id="searchsubmit" value="'. esc_attr__('Search') .'">
 			</div>
 			</form>';
 			return $form;
@@ -575,80 +576,98 @@
 
 
 
-/*	5)	Add Boilerplate options to page as requested */
+/*	5)	Add HTML5 Boilerplate options to page as requested */
 		if (!is_admin() ) {
+
 			// get the options
 			$options = get_option('plugin_options');
 
-			// check if options is set & true (meaning it was checked)
+			// check if each option is set (meaning it exists) and check if it is true (meaning it was checked)
 			if (isset($options['doctype']) && $options['doctype']) {
-				// if so, add it to page
+				// if yes to both, apply option
 				add_action('get_header', 'start_doctype');
 				add_action('wp_head', 'write_doctype');
 			}
+
 			if (isset($options['html']) && $options['html']) {
 				add_action('get_header', 'start_html');
 				add_action('wp_head', 'write_html');
 			}
+
 			if (isset($options['head']) && $options['head']) {
 				add_action('get_header', 'start_head');
 				add_action('wp_head', 'write_head');
 				add_action('wp_print_styles', 'add_xfn');
 			}
+
 			if (isset($options['charset']) && $options['charset']) {
 				add_action('get_header', 'start_charset');
 				add_action('wp_head', 'write_charset');
 			}
+
 			if (isset($options['toolbar']) && $options['toolbar']) {
 				add_action('wp_print_styles', 'add_toolbar');
 			}
+
 			if (isset($options['google_chrome']) && $options['google_chrome']) {
 				add_action('wp_print_styles', 'add_google_chrome');
 			}
+
 			if (isset($options['google_verification']) && $options['google_verification'] && $options['google_verification_account'] && $options['google_verification_account'] !== 'XXXXXXXXX...') {
 				add_action('wp_print_styles', 'add_google_verification');
 			}
+
 			if (isset($options['viewport']) && $options['viewport']) {
 				add_action('wp_print_styles', 'add_viewport');
 			}
+
 			if (isset($options['favicon']) && $options['favicon']) {
 				add_action('wp_print_styles', 'add_favicon');
 			}
+
 			if (isset($options['favicon_ithing']) && $options['favicon_ithing']) {
 				add_action('wp_print_styles', 'add_favicon_ithing');
 			}
+
 			if (isset($options['modernizr_js']) && $options['modernizr_js']) {
 				add_action('wp_print_styles', 'add_modernizr_script');
-			} else { // if Modernizr isn't selected, add IEShiv inside an IE Conditional Comment
+			} else {
+				// if Modernizr isn't selected, add IEShiv inside an IE Conditional Comment
 				add_action('wp_print_styles', 'add_ieshiv_script');
 			}
+
 			if (isset($options['respond_js']) && $options['respond_js']) {
 				add_action('wp_print_styles', 'add_respond_script');
 			}
+
 			if (isset($options['ie_css']) && $options['ie_css']) {
 				add_action('wp_print_styles', 'add_ie_stylesheet');
 			}
+
 			if (isset($options['jquery_js']) && $options['jquery_js'] && isset($options['jquery_version']) && $options['jquery_version'] && $options['jquery_version'] !== '') {
-				$action = (isset($options['jquery_head']) && $options['jquery_head']) ? 'wp_print_styles' : 'wp_print_footer_scripts';
-				add_action($action, 'add_jquery_script');
+				// check if should be loaded in <head> or at end of <body>
+				$hook = (isset($options['jquery_head']) && $options['jquery_head']) ? 'wp_print_styles' : 'wp_footer';
+				add_action($hook, 'add_jquery_script');
 			}
 			// for jQuery plug-ins, make sure jQuery was also set
 			if (isset($options['jquery_js']) && $options['jquery_js'] && isset($options['plugins_js']) && $options['plugins_js']) {
-				$action = (isset($options['jquery_head']) && $options['jquery_head']) ? 'wp_print_styles' : 'wp_print_footer_scripts';
-				add_action($action, 'add_plugin_script');
+				// check if should be loaded in <head> or at end of <body>
+				$hook = (isset($options['jquery_head']) && $options['jquery_head']) ? 'wp_print_styles' : 'wp_footer';
+				add_action($hook, 'add_plugin_script');
 			}
+
 			if (isset($options['site_js']) && $options['site_js']) {
-				add_action('wp_loaded', 'add_site_script');
+				add_action('wp_footer', 'add_site_script');
 			}
+
 			if (isset($options['google_analytics_js']) && $options['google_analytics_js'] && isset($options['google_analytics_account']) && $options['google_analytics_account'] && $options['google_analytics_account'] !== 'XXXXX-X') {
 				add_action('wp_footer', 'add_google_analytics_script');
 			}
+
 			if (isset($options['search_placeholder_text']) && $options['search_placeholder_text']) {
 				add_filter( 'get_search_form', 'search_placeholder_text');
 			}
-		}
 
-
-/*	End customization for Boilerplate */
+		} // if (!is_admin() )
 
 ?>

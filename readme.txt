@@ -2,8 +2,8 @@
 Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
-Tested up to: 3.2
-Stable tag: 3.2
+Tested up to: 3.3.1
+Stable tag: 3.3
 
 Based on the HTML5 Boilerplate created by Paul Irish and Divya Manian,
 this allows for easy inclusion/removal of all HTML5 Boilerplate options.
@@ -94,6 +94,15 @@ Atg
 
 
 == Changelog ==
+
+= 3.3 =
+2012-02-24:
+* Converted `... />` to  `...>` for all the stuff this plug-in writes to the page.
+* Updated `/css/style-starter.css` to latest HTML5 Boilerplate version.
+* Updated jQuery to 1.7.1.
+* Updated Modernizr to 2.5.3, Custom Build.
+* Added 57x57 iThing favicon link.
+* Fixed Bug introduced by WP 3.3+ that causes jQuery to be loaded after site-specific JS.
 
 = 3.2 =
 2011-06-09:
