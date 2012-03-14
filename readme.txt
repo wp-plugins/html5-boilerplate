@@ -3,7 +3,7 @@ Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
 Tested up to: 3.3.1
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 
 Based on the HTML5 Boilerplate created by Paul Irish and Divya Manian,
 this allows for easy inclusion/removal of all HTML5 Boilerplate options.
@@ -94,6 +94,11 @@ Atg
 
 
 == Changelog ==
+
+= 3.4.2 =
+Oof!  Sloppy programming on my part, neglected to name-space functions, which was causing conflicts with other plug-ins...
+Not any more, all functions & `plugin_options` names now begin `H5BP`...  Sorry to all, and special thanks to outlierdesign and waldbach
+for bringing this up in the WP Forum...
 
 = 3.4.1 =
 I hate SVN some times...
