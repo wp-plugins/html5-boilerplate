@@ -2,8 +2,8 @@
 Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
-Tested up to: 3.3.1
-Stable tag: 3.4.2
+Tested up to: 3.4.2
+Stable tag: 4.0
 
 Based on the HTML5 Boilerplate created by Paul Irish and Divya Manian,
 this allows for easy inclusion/removal of all HTML5 Boilerplate options.
@@ -18,16 +18,16 @@ first WordPress plug-in, [HTML5 Boilerplate](http://html5boilerplate.com/).
 As a spin-off of my [Boilerplate - Starkers WP Theme](http://aarontgrogg.com/boilerplate/),
 this plug-in can be added to any theme, new, pre-existing, already customized, whatevs!
 
-The clumsiest part of this plug-in is dealing with the CSS files.
+The clumsiest part of this is dealing with the Boilerplate CSS and JS files.
 To avoid any changes you make from being overwritten during upgrades,
-"starter" files have been created in the plug-in's css directory.
-I recommend copying the contents of the starter files into new files that you
-can safely edit.  That way, if the starter files are updated later, you can
+"starter" files have been created in the `/css` and `/js` directories.  I recommend
+creating copies of the starter files (removing '-starter' from the new filenames)
+that you can safely edit.  That way, if the starter files are updated later, you can
 simply copy/paste from them into your files again, and all is fine.
 
-Another route would be to add `@import` statements at the top of
-your file, but this does increase your HTTP Requests, which hurts performance...
-Your call, let me know if you can think of a better implementation.)
+Another route would be to add additional links in your pages, but this does increase
+your HTTP Requests, which hurts performance...
+Your call, let me know if you can think of a better implementation.
 
 Cannot for the life of me figure out how to make the screenshots work in the `readme.txt`, so here are the links...
 
@@ -83,21 +83,46 @@ Atg
 * Add Google Analytics?
 * Use HTML5 Search `<input>` Type?
 * Add Search `placeholder` Text?
+* Use Google Search Helper on `404` pages?
 * Add Cache Buster to CSS &amp; JS Files?
 
 
 == Screenshots ==
 
-1. [screenshot-admin-screen.png](screenshot-admin-screen.png)
-2. [screenshot-html-before.png](screenshot-html-before.png)
+1. [screenshot-admin-screen.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-admin-screen.png)
+2. [screenshot-html-before.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-html-before.png)
 3. [screenshot-html-after.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-html-after.png)
 
 
 == Changelog ==
 
+= 4.0 2012-09-28 =
+NOTE:
+  I find myelf at a very troublesome crossroads with the good folks of HTM5Boilerplate project...
+  With the release of their 4.0, they have greatly changed a number of structure items, such as directory and file names
+  that will work just fine for their project, because it is intended as a starting point for new projects, but is somewhat
+  problematic for things like WP Themes & Plugins, as they tend to serve initially as starting points, but then quickly become
+  something that must be updatable, and therefore be backwards-compatible...  And splitting `/css/style.css` into `/css/normalize.css`
+  and `/css/main.css` could cause issues for developers already using a Theme/Plugin.  So, in the interest of my users, I am staying
+  with the old directory and file names, regardless of the additional work this will cause me.  I hope this doesn't confuse anyone...
+
+* Updated jQuery to 1.8.2
+* Updated Modernizr to 2.6.2
+* Updated `/css/style-starter.css` to latest HTML5 Boilerplate version (combination of `/css/normalize.css` and `/css/main.css`)
+* Updated `/js/plugins.js` to latest HTML5 Boilerplate version
+* Updated `/js/respond.js` to latest version: https://github.com/scottjehl/respond (keeping this separate from Modernizr, as you might only want one)
+* Updated `/js/ieshiv.js` to latest version: https://raw.github.com/aFarkas/html5shiv
+* Added `/js/plugins-starter.js` file to prevent overwrites during Theme upgrades
+* Added ability to force custom site-specific JS into the `&lt;head&gt;` instead of before the `&lt;/body&gt;`
+* Added `&lt;link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png"&gt;` option
+* Added `/doc` directory from latest HTML5 Boilerplate version
+* Added `readme.md` from latest HTML5 Boilerplate version
+* Added "Check All | Uncheck All" links to top of BP Admin form
+* Reordered apple-touch-icon links per H5BP docs; thanks once again, Micah!
+
 = 3.4.2 =
 Oof!  Sloppy programming on my part, neglected to name-space functions, which was causing conflicts with other plug-ins...
-Not any more, all functions & `plugin_options` names now begin `H5BP`...  Sorry to all, and special thanks to outlierdesign and waldbach
+Not any more, all functions & `plugin_options` names now begin `H5BP_`...  Sorry to all, and special thanks to outlierdesign and waldbach
 for bringing this up in the WP Forum...
 
 = 3.4.1 =
