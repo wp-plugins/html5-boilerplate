@@ -9,7 +9,7 @@
 		<a href="http://paulirish.com" target="_blank">Paul Irish</a> and <a href="http://nimbupani.com" target="_blank">Divya Manian</a>,
 		this plug-in allows for easy inclusion and removal of all HTML5 Boilerplate options pertinent to WP.
 		More about this plug-in can be found at <a href="http://aarontgrogg.com/html5boilerplate/">http://aarontgrogg.com/html5boilerplate/</a>.
-	Version: 4.0
+	Version: 4.1
 	Author: Aaron T. Grogg, based on the work of Paul Irish & Divya Manian
 	Author URI: http://aarontgrogg.com/
 	License: GPLv2 or later
@@ -56,7 +56,6 @@
 						<p class="submit"><input name="Submit" type="submit" class="button-primary" value="<?php esc_attr_e('Save Changes'); ?>"></p>
 					</form>
 					<script>
-						(function(){
 						(function(window){
 							window.H5BP = {
 								form : null,
@@ -79,7 +78,6 @@
 							}
 							H5BP.init();
 						})(window);
-						})();
 					</script>
 				</div>
 			<?php
@@ -330,8 +328,8 @@
 				echo '<code>&lt;script src="' .H5BP_URL. '/js/modernizr.js"&gt;&lt;/script&gt;</code>';
 				echo '<p><strong>Note: If you do <em>not</em> include Modernizr, the IEShiv JS <em>will</em> be added to accommodate the HTML5 elements used in Boilerplate in weaker browsers:</strong></p>';
 				echo '<code>&lt;!--[if lt IE 9]&gt;</code>';
-				echo '<code>	&lt;script src="//html5shiv.googlecode.com/svn/trunk/html5.js" onload="window.ieshiv=true;"&gt;&lt;/script&gt;</code>';
-				echo '<code>	&lt;script&gt;!window.ieshiv && document.write(unescape(\'%3Cscript src="' .H5BP_URL. '/js/ieshiv.js"%3E%3C/script%3E\'))&lt;/script&gt;</code>';
+				echo '<code>	&lt;script src="//html5shiv.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;</code>';
+				echo '<code>	&lt;script&gt;!window.html5 && document.write(unescape(\'%3Cscript src="' .H5BP_URL. '/js/ieshiv.js"%3E%3C/script%3E\'))&lt;/script&gt;</code>';
 				echo '<code>&lt;![endif]--&gt;</code>';
 			}
 		endif; // H5BP_modernizr_js_setting
@@ -628,8 +626,8 @@
 			function H5BP_add_ieshiv_script() {
 				$cache = H5BP_cache_buster();
 				echo '<!--[if lt IE 9]>'.PHP_EOL;
-				echo '	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js" onload="window.ieshiv=true;"></script>'.PHP_EOL; // try getting from CDN
-				echo '	<script>!window.ieshiv && document.write(unescape(\'%3Cscript src="' .H5BP_URL. '/js/ieshiv.js'.$cache.'"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
+				echo '	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>'.PHP_EOL; // try getting from CDN
+				echo '	<script>!window.html5 && document.write(unescape(\'%3Cscript src="' .H5BP_URL. '/js/ieshiv.js'.$cache.'"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
 				echo '<![endif]-->'.PHP_EOL;
 			}
 		endif; // H5BP_add_ieshiv_script
@@ -650,7 +648,7 @@
 				$version = ($options['H5BP_jquery_version']) ? $options['H5BP_jquery_version'] : '1.8.2';
 				wp_deregister_script( 'jquery' ); // get rid of WP's jQuery
 				echo '<script src="//ajax.googleapis.com/ajax/libs/jquery/'.$version.'/jquery.min.js"></script>'.PHP_EOL; // try getting from CDN
-				echo '<script>window.jQuery || document.write(unescape(\'%3Cscript src="' .H5BP_URL. '/js/jquery.js'.$cache.'"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
+				echo '<script>!window.jQuery || document.write(unescape(\'%3Cscript src="' .H5BP_URL. '/js/jquery.js'.$cache.'"%3E%3C/script%3E\'))</script>'.PHP_EOL; // fallback to local if CDN fails
 			}
 		endif; // H5BP_add_jquery_script
 
