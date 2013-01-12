@@ -9,7 +9,7 @@
 		<a href="http://paulirish.com" target="_blank">Paul Irish</a> and <a href="http://nimbupani.com" target="_blank">Divya Manian</a>,
 		this plug-in allows for easy inclusion and removal of all HTML5 Boilerplate options pertinent to WP.
 		More about this plug-in can be found at <a href="http://aarontgrogg.com/html5boilerplate/">http://aarontgrogg.com/html5boilerplate/</a>.
-	Version: 4.1
+	Version: 4.2
 	Author: Aaron T. Grogg, based on the work of Paul Irish & Divya Manian
 	Author URI: http://aarontgrogg.com/
 	License: GPLv2 or later
