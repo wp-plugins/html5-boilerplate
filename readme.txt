@@ -2,8 +2,8 @@
 Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
-Tested up to: 3.4.2
-Stable tag: 4.1
+Tested up to: 3.5
+Stable tag: 4.2
 
 Based on the HTML5 Boilerplate created by Paul Irish and Divya Manian,
 this allows for easy inclusion/removal of all HTML5 Boilerplate options.
@@ -94,6 +94,9 @@ Atg
 
 
 == Changelog ==
+
+= 4.2 2013-01-12 =
+* Tested & verified in WP 3.5
 
 = 4.1 2012-11-14 =
 * Fixed an issue where the `html5shiv.js` was getting applied to a page 2-3 times in IE < 9...  erps!
