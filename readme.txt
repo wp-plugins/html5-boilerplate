@@ -3,11 +3,14 @@ Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
 Tested up to: 3.5
-Stable tag: 4.2
+Stable tag: 4.3
 
-Based on the HTML5 Boilerplate created by Paul Irish and Divya Manian,
-this allows for easy inclusion/removal of all HTML5 Boilerplate options.
+Based on the [HTML5 Boilerplate](http://html5boilerplate.com/) created by
+[Paul Irish](http://paulirish.com/) and [Divya Manian](http://nimbupani.com/),
+this plug-in allows for easy inclusion and removal of all HTML5 Boilerplate options
+that are pertinent to WP.
 
+More about this plug-in can be found at http://aarontgrogg.com/html5boilerplate/
 
 == Description ==
 
@@ -29,23 +32,20 @@ Another route would be to add additional links in your pages, but this does incr
 your HTTP Requests, which hurts performance...
 Your call, let me know if you can think of a better implementation.
 
-Cannot for the life of me figure out how to make the screenshots work in the `readme.txt`, so here are the links...
-
-1. [screenshot-admin-screen.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-admin-screen.png)
-2. [screenshot-html-before.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-html-before.png)
-3. [screenshot-html-after.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-html-after.png)
-
 More about this plug-in can be found at:
-[http://aarontgrogg.com/html5boilerplate/](http://aarontgrogg.com/html5boilerplate/)
+http://aarontgrogg.com/html5boilerplate/
 
 I also built a Boilerplate theme based on [Elliot Jay Stocks'](http://elliotjaystocks.com/)
 [Starkers Theme](http://starkerstheme.com/) that can be found at:
-[http://aarontgrogg.com/boilerplate/](http://aarontgrogg.com/boilerplate/)
+http://aarontgrogg.com/boilerplate/
 
 Please let me know if you have any questions/suggestions/thoughts,
+
 Atg
-[http://aarontgrogg.com/](http://aarontgrogg.com/)
-[aarontgrogg@gmail.com](mailto:aarontgrogg@gmail.com)
+
+http://aarontgrogg.com/
+
+aarontgrogg@gmail.com
 
 
 == Installation ==
@@ -88,12 +88,19 @@ Atg
 
 == Screenshots ==
 
-1. [screenshot-admin-screen.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-admin-screen.png)
-2. [screenshot-html-before.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-html-before.png)
-3. [screenshot-html-after.png](http://aarontgrogg.com/wp-content/plugins/html5-boilerplate/screenshot-html-after.png)
+1. Admin Screen
+2. View Source Before HTML5 Boilerplate
+3. View Source After HTML5 Boilerplate
 
 
 == Changelog ==
+
+= 4.3 2013-04-05 =
+* Big thanks to Frédéric Bolduc for pointing out that jQuery was being added twice, once from the Google CDN,
+  then again the local version, because I had `!window.jQuery || ...` instead of `window.jQuery || ...`  Doh!
+* And speaking of jQuery, updated the local version to 1.9.1.
+* Finally figured out how Screenshots work, so... whew-hew!
+* Full verison update is due again, I guess, hopefully soon!
 
 = 4.2 2013-01-12 =
 * Tested & verified in WP 3.5
