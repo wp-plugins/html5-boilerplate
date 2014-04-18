@@ -2,8 +2,8 @@
 Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
-Tested up to: 3.5
-Stable tag: 4.3
+Tested up to: 3.9
+Stable tag: 4.4
 
 Based on the [HTML5 Boilerplate](http://html5boilerplate.com/) created by
 [Paul Irish](http://paulirish.com/) and [Divya Manian](http://nimbupani.com/),
@@ -94,6 +94,17 @@ aarontgrogg@gmail.com
 
 
 == Changelog ==
+
+= 4.4 2013-04-11 =
+* Updated `css/site-specific.css`, concatenating `normal.css` and `main.css`
+* Updated `docs/*`
+* Updated `plugins.js`
+* Updated `modernizr.js` to 2.6.2
+* Updated `respond.js`
+* Updated name of `ieshiv.js` to `html5shiv.js`
+* Replaced contents of `html5shiv.js` with `html5shiv-printshiv.js`; I know it means 4kb instead of 2kb, but it just seems right...
+* Updated `_LICENSE.txt` to reflect HTML5 Boilerplate `LICENSE.md`
+* Removed protocol check in Google Analytics block
 
 = 4.3 2013-04-05 =
 * Big thanks to Frédéric Bolduc for pointing out that jQuery was being added twice, once from the Google CDN,
