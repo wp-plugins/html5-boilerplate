@@ -3,7 +3,7 @@ Contributors: aarontgrogg
 Tags: html5, boilerplate
 Requires at least: 3.1
 Tested up to: 4.1.1
-Stable tag: 5.0
+Stable tag: 5.0.1
 
 Based on the [HTML5 Boilerplate](http://html5boilerplate.com/) created by
 [Paul Irish](http://paulirish.com/) and [Divya Manian](http://nimbupani.com/),
@@ -93,7 +93,7 @@ aarontgrogg@gmail.com
 
 == Changelog ==
 
-= 5.0 2015-03-13 =
+= 5.0.1 2015-03-13 =
 * The first update in nearly two years, on Friday the 13th...  What could go wrong??  ;-)
 * Updated `css/site-specific.css` with latest `normal.css` and `main.css`
 * Removed `docs/*`; if you want this, please refer to https://github.com/h5bp/html5-boilerplate/tree/master/dist/doc
